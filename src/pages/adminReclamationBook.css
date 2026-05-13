@@ -1,0 +1,90 @@
+.claim-admin-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 40px;
+}
+.claim-admin-inputs{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.claim-admin-selector{
+    flex: 1;
+    width: 100%;
+}
+.search-bars{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.inputs-content{
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.inputs-content input{
+    font-size: 20px;
+    padding: 5px 20px;
+    border: 1px solid black;
+    width: 100%;
+    border-radius: 10px;
+}
+.inputs-content input:focus {
+    outline: none;
+}
+.inputs-content input:active {
+    outline: none;
+}
+.search-button-content{
+    flex: 1;
+    width: 100%;
+}
+.search-button-content button{
+    color: rgb(0, 0, 167);
+    background: none;
+    border: 2px solid rgb(0, 0, 167);
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2 ease;
+}
+.search-button-content button:hover{
+    color: white;
+    background: rgb(0, 0, 167);
+}
+.update-button{
+    padding: 10px 20px;
+    font-size: 20px;
+    border: 2px solid rgb(212, 0, 0);
+    border-radius: 10px;
+    color: rgb(212, 0, 0);
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.update-button:hover{
+    color: white;
+    background: rgb(212, 0, 0);
+}
+@media(max-width: 780px){
+    .claim-admin-inputs{
+        flex-direction: column;
+    }
+}
+@media(max-width: 480px){
+    .claim-admin-inputs,
+    .search-bars{
+        width: 100%;
+        flex-direction: column;
+    }
+    .pagination{
+        flex-direction: column;
+    }
+}

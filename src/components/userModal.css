@@ -1,0 +1,76 @@
+.user-form-content{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.user-form-content input{
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+.send-cart-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+.send-cart-content button{
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: rgb(0,40,120);
+    color: white;
+    border: 2px solid rgb(0,40,120);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.send-cart-content button:hover{
+    background: white;
+    color: rgb(0,40,120);
+}
+.send-cart-content button:disabled{
+    color: white;
+    background: rgb(0,40,120);
+    opacity: 0.7;
+    cursor: default;
+}
+.whatsapp-options{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.buttons-whatsapp-container{
+    display: flex;
+    width: 100%;
+    justify-content: left;
+    gap: 20px;
+}
+.buttons-whatsapp-container button{
+    font-size: 20px;
+    width: 80px;
+    padding: 10px;
+    border-radius: 10px;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.buy-whatsapp-confirm{
+    color: green;
+    border: 2px solid green;
+}
+.buy-whatsapp-deny{
+    color: red;
+    border: 2px solid red;
+}
+.buy-whatsapp-confirm:hover{
+    color: white;
+    background: green;
+}
+.buy-whatsapp-deny:hover{
+    color: white;
+    background: red;
+}

@@ -1,0 +1,129 @@
+.order_backdrop{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.order-modal{
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    min-width: 450px;
+    padding-top: 60px;
+    position: relative;
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.order-modal h2{
+    padding: 10px 0;
+}
+.order-modal.open {
+    transform: scale(1);
+    opacity: 1;
+}
+.order-modal.closing {
+    transform: scale(0.7);
+    opacity: 0;
+}
+.modar-items-data-type,
+.modal-item-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto auto;
+    align-items: center;
+    gap: 15px;
+}
+.modal-item-container img{
+    max-width: 80px;
+    max-height: 100px;
+}
+.modar-items-data-type p,
+.modal-item-container p{
+    width: 70px;
+    display: flex;
+    justify-content: center;
+}
+.erase-order-button{
+    margin-top: 20px;
+    width: 100%;
+    padding: 5px 0;
+    font-size: 20px;
+    border: solid 1px red;
+    color: red;
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.error-order{
+    margin-top: 10px;
+    font-size: 12px;
+    color: red;
+}
+.erase-order-button:hover{
+    color: white;
+    background: red;
+}
+.erase-order-button:disabled{
+    opacity: 0.5;
+    color: red;
+    background: white;
+    cursor: default;
+}
+.more-items{
+    margin-top: 6px;
+    font-size: 13px;
+    color: #5c6b82;
+    font-style: italic;
+    text-align: right;
+}
+.scroll-wrapper {
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.admin-items-scroll {
+    margin: 10px 0;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+}
+.admin-items-scroll:active{
+    cursor: grabbing;
+}
+.admin-items-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.admin-items-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        45deg,
+        rgb(0, 80, 172),
+        rgb(1, 119, 255)
+    );
+    border-radius: 4px;
+}
+.change-status{
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 0;
+    cursor: pointer;
+    color: blue;
+    background: none;
+    border: solid 2px blue;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+.change-status:hover{
+    background: blue;
+    color: white;
+}
+.change-status:disabled{
+    color: blue;
+    background: none;
+    opacity: 0.7;
+}

@@ -1,0 +1,23 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0 40px;
+}
+.container h1{
+    margin: 0 40px;
+}
+.discount{
+    width: 100%;
+    min-height: 400px;
+    background: white;
+    overflow: hidden;
+    border: solid 1px black;
+    border-radius: 20px;
+}
+.popular{
+    width: 100%;
+    min-height: 500px;
+}

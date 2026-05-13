@@ -1,0 +1,74 @@
+.claim-history form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.historial-form{
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    align-items: center;
+}
+.historial-selector{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 20px;
+}
+.historial-selector select{
+    font-size: 20px;
+    padding: 10px 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.historial-selector select:focus {
+    outline: none;
+}
+.historial-selector select:active {
+    outline: none;
+}
+.historial-form textarea{
+    flex: 5;
+    width: 100%;
+    height: 80px;
+    font-size: 20px;
+    padding: 5px 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.historial-form textarea:focus {
+    outline: none;
+}
+.historial-form textarea:active {
+    outline: none;
+}
+.historial-form button{
+    flex: 1;
+    font-size: 20px;
+    padding: 10px;
+    color: rgb(0, 0, 94);
+    background: none;
+    border: 2px solid rgb(0, 0, 94);
+    border-radius: 15px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.historial-form button:hover{
+    color: white;
+    background: rgb(0, 0, 94);
+}
+.historial-form button:disabled{
+    color: rgb(0, 0, 94);
+    background: white;
+    cursor: default;
+    transition: none;
+    opacity: 0.7;
+}
+@media(max-width:780px){
+    .historial-form{
+        flex-direction: column;
+    }
+}

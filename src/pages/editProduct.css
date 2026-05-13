@@ -1,0 +1,47 @@
+.change-log {
+    padding: 20px;
+}
+.change-log-item {
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    font-size: 20px;
+}
+.old-value {
+    color: #ff6b6b;
+}
+.new-value {
+    color: #4cd137;
+}
+.change-images {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.change-log-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.change-values {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.old-value, .new-value {
+    display: flex;
+    gap: 5px;
+}
+
+.arrow {
+    font-weight: bold;
+}

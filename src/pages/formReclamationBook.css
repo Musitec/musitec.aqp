@@ -1,0 +1,148 @@
+.create-reclam-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+}
+.create-reclam-container form{
+    width: 100%;
+}
+.reclam-form{
+    width: 100%;
+    display: flex;
+    padding: 10px 0;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+.user-form,
+.order-reclam-info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.user-form input,
+.order-reclam-info input,
+.order-reclam-info select{
+    width: 100%;
+    font-size: 20px;
+    padding: 5px 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.document{
+    display: flex;
+    gap: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0 10px;
+    overflow: hidden;
+}
+.document select{
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 10%;
+    height: 100%;
+    outline: none;
+}
+.document select:focus,
+.document input:focus {
+    outline: none;
+}
+.document select:active,
+.document input:active {
+    outline: none;
+}
+.document-type-container option{
+    cursor: pointer;
+}
+.middle{
+    width: 1px;
+    height: 100%;
+    background: black;
+}
+.document input{
+    border: none;
+}
+.selectors-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.selector-container{
+    padding: 5px 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+.circle-container{
+    display: "inline-block";
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid black;
+    position: relative;
+}
+.circle-selected{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: black
+}
+.order-reclam-info textarea{
+    font-size: 20px;
+    width: 100%;
+    height: 60px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.create-reclam-container form button{
+    font-size: 20px;
+    padding: 5px 20px;
+    border: 2px solid rgb(0, 0, 155);
+    background: none;
+    color: rgb(0, 0, 155);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.create-reclam-container form button:hover{
+    color: white;
+    background: rgb(0, 0, 155);
+}
+.create-reclam-container form button:disabled{
+    transition: none;
+    cursor: default;
+    color: rgb(0, 0, 155);
+    background: none;
+    opacity: 0.7;
+}
+@media(max-width:780px){
+    .create-reclam-container{
+        padding: 10px;
+    }
+    .reclam-form{
+        flex-direction: column;
+    }
+    .user-form,
+    .order-reclam-info{
+        width: 100%;
+    }
+}

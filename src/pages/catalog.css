@@ -1,0 +1,172 @@
+.filters{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.bar-container {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 20px;
+}
+.bar {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+.bar-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: smooth;
+    display: flex;
+    scroll-snap-type: x mandatory;
+}
+.bar-scroll:active {
+    cursor: grabbing;
+}
+.bar-buttons {
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    width: max-content;
+}
+.bar-buttons button {
+    min-width: 160px;
+    padding: 12px 20px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: none;
+    background: #f0f0f0;
+    color: rgb(2, 41, 96);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.bar-buttons button:hover:not(:disabled) {
+    background: #ddd;
+}
+.bar-buttons button:disabled {
+    background: #222;
+    color: white;
+    cursor: default;
+}
+.bar-buttons-disactive{
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    width: max-content;
+}
+.bar-buttons-disactive button{
+    min-width: 160px;
+    padding: 12px 20px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: none;
+    background: #f0f0f0;
+    color: rgb(59, 72, 92);
+    cursor: default;
+    transition: all 0.2s ease;
+}
+.bar-buttons-disactive button:disabled{
+    background: #ddd;
+    opacity: 0.2;
+}
+.bar-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+.bar-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        45deg,
+        rgb(0, 80, 172),
+        rgb(1, 119, 255)
+    );
+    border-radius: 4px;
+}
+.search-bar {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    margin: 0 auto;
+}
+.search-bar input {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.search-bar input:focus {
+    border-color: rgb(0, 80, 172);
+}
+.search-bar button {
+    color: blue;
+    background: none;
+    font-size: 20px;
+    padding: 5px 20px;
+    border: 2px solid blue;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.search-bar button:hover{
+    color: white;
+    background: blue;
+}
+.product-content{
+    padding: 0 40px;
+}
+.pagination{
+    padding: 0 40px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.page-buttons{
+    display: flex;
+    gap: 20px;
+}
+.page-buttons button{
+    color: white;
+    background: rgb(1, 37, 103);
+    width: 50px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.page-buttons button:hover{
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+.page-buttons button:disabled{
+    opacity: 0.3;
+    cursor: default;
+    transition: none;
+    transform: none;
+    box-shadow: none;
+}
+@media (max-width:600px){
+    .pagination{
+        gap: 30px;
+    }
+    .pagination,
+    .page-buttons{
+        font-size: 14px;
+    }
+    .bar-container h2{
+        font-size: 20px;
+    }
+}

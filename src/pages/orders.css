@@ -1,0 +1,70 @@
+.order-data-client{
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px black;
+    border-radius: 20px;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.trash-order{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    color: red;
+    background: none;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.trash-order:hover{
+    background: red;
+    color: white;
+}
+.product-list-order{
+    margin: 0 20px;
+    height: calc(6 * 16px);
+}
+.product-list-order li {
+    list-style-type: disc;
+    font-size: 16px;
+}
+.order-data-client:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+.order-products-content{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.order-products-content li{
+    list-style-type: disc;
+    font-size: 16px;
+}
+.order-products-content li p{
+    font-size: 12px;
+}
+.view-historial-product{
+    color: blue;
+    background: none;
+    font-size: 20px;
+    padding: 5px 20px;
+    border: 2px solid blue;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.view-historial-product:hover{
+    color: white;
+    background: blue;
+}

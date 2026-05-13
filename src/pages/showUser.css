@@ -1,0 +1,111 @@
+.user-panel{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 30px;
+}
+.user-panel h1{
+    font-size: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+.user-data-main{
+    padding: 20px 40px;
+    display: flex;
+    gap: 20px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+.user-logo{
+    width: 100%;
+    height: 250px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 200px;
+}
+.user-panel-data{
+    flex: 1;
+    font-size: 20px;
+}
+.change-user-data{
+    width: 100%;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.change-user-role{
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.change-user-role button{
+    font-size: 20px;
+    padding: 10px 20px;
+    background: none;
+    color: blue;
+    border: 2px solid blue;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.change-user-role button:hover{
+    color: white;
+    background: blue;
+}
+.change-user-role button:disabled{
+    transition: none;
+    cursor: default;
+    color: blue;
+    background: none;
+    opacity: 0.5;
+}
+.block-user{
+    flex: 1;
+    padding: 10px 20px;
+}
+.block-user button{
+    color: red;
+    font-size: 20px;
+    padding: 10px 20px;
+    background: none;
+    border: 2px solid red;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.block-user button:hover{
+    color: white;
+    background: red;
+}
+.user-history{
+    padding: 5px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.history-item{
+    font-size: 20px;
+}
+@media (max-width:780px){
+    .user-data-main{
+        flex-direction: column;
+    }
+    .change-user-data{
+        flex-direction: column;
+    }
+}
+@media (max-width:480px){
+    .change-user-role{
+        flex-direction: column;
+    }
+}

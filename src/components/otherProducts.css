@@ -1,0 +1,131 @@
+.other-product-viewer{
+    border: solid 1px black;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 10px;
+    width: 350px;
+    height: 500px;
+    padding: 5px 0;
+    padding-top: 0;
+    cursor: pointer;
+}
+.other-product-viewer h3{
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
+.other-product-img{
+    width: 100%;
+    min-height: 300px;
+    max-height: 300px;
+    border-radius: 20px;
+    position: relative;
+}
+.other-product-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.15s ease;
+}
+.other-product-image.show{
+    opacity: 1;
+}
+.other-product-image.hide{
+    opacity: 0;
+}
+.other-product-discount{
+    font-size: 25px;
+    color: white;
+    background: red;
+    padding: 5px 80px;
+    position: absolute;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    transform: rotate(-45deg);
+    top: 30px;
+    left: -80px;
+}
+.other-product-stock{
+    color: white;
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+    font-size: 20px;
+}
+.other-product-empty{
+    position: absolute;
+    top: 80px;
+    left: 25px;
+    font-size: 50px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transform: rotate(-15deg);
+    color: red;
+    padding: 10px 25px;
+    border: 6px solid red;
+    border-radius: 8px;
+    background: transparent;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 0 2px red, inset 0 0 0 2px red;
+    filter: brightness(0.9) contrast(1.2);
+    text-shadow: 
+        1px 1px 0 rgba(0,0,0,0.1),
+        -1px -1px 0 rgba(0,0,0,0.1),
+        2px 2px 3px rgba(0,0,0,0.2);
+    background-image: radial-gradient(rgba(255, 0, 0, 0.2) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+}
+.other-product-bubbles{
+    width: 100%;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.other-bubble{
+    height: 100%;
+    width: 10px;
+    border-radius: 50%;
+    background: #888;
+    transition: all 0.2s ease;
+}
+.other-bubble.active{
+    background-color: #444;
+    scale: 1.05;
+}
+.other-product-price-content{
+    margin: 0;
+    padding: 5px 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+.other-product-price-content p{
+    margin: 0;
+}
+.other-product-price-container{
+    width: 100%;
+    display: flex;
+    padding: 0 30px;
+    align-items: center;
+    gap: 15px;
+}
+.other-product-old-price{
+    font-size: 22px;
+    color: red;
+    text-decoration: line-through;
+}
+.other-product-new-price{
+    font-size: 30px;
+    color: rgb(0,40,120);
+}

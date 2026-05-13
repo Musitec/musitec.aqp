@@ -1,0 +1,117 @@
+.watch-reclamation-content{
+    width: 100%;
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.header-reclamation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.header-left h1 {
+    margin: 0;
+    font-size: 28px;
+}
+.header-subtitle {
+    margin: 2px 0 0 0;
+    font-size: 14px;
+    color: #666;
+}
+.btn-pdf {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-pdf:hover {
+    background: #333;
+    transform: translateY(-1px);
+}
+.btn-pdf:active {
+    transform: scale(0.97);
+}
+.btn-pdf:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+.watch-reclamation-main{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+}
+.user-details{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 22px;
+    padding: 10px 20px;
+}
+.claim-details{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 20px;
+}
+.claim-details p{
+    font-size: 20px;
+}
+.claim-history{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.claim-history p{
+    padding: 0 20px;
+}
+.claim-history ul{
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.claim-history ul li{
+    list-style-type: disc;
+    font-size: 20px;
+}
+@media(max-width: 780px){
+    .watch-reclamation-main{
+        flex-direction: column;
+    }
+}
+.accept-button{
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    padding: 10px 20px;
+    background: none;
+    border: 2px solid black;
+    color: black;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.accept-button:hover{
+    background: black;
+    color: white;
+}

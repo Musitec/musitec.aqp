@@ -1,0 +1,102 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: #0f172a;
+    color: #e5e7eb;
+    padding: 20px 10px;
+    padding-bottom: 0;
+    gap: 2px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont;
+    align-items: center;
+}
+.footer-content {
+    max-width: 1200px;
+    display: grid;
+    display: flex;
+    gap: 200px;
+    padding: 0;
+    margin: 0;
+}
+.footer-section h3,
+.footer-section h4 {
+    color: #f8fafc;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+.footer-section p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5f5;
+}
+.footer-section.links button {
+    background: none;
+    margin: 0 10px;
+    border: none;
+    color: #cbd5f5;
+    text-align: left;
+    padding: 0.3rem 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+.footer-section.links button p{
+    color: #cbd5f5;
+    transition: color 0.2s ease;
+}
+.footer-section.links button:hover {
+    color: #38bdf8;
+}
+.footer-section.links button:hover p{
+    color: #38bdf8;
+}
+.footer-section.links button:last-child {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+.social-links a {
+    font-size: 1.4rem;
+    color: #cbd5f5;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+.social-links a:hover {
+    color: #38bdf8;
+    transform: scale(1.15);
+}
+.footer-bottom {
+    border-top: 1px solid #1e293b;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+@media (max-width: 780px) {
+    .footer {
+        text-align: center;
+    }
+    .footer-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .footer-section{
+        margin: 0;
+        padding: 0;
+    }
+    .footer-section p{
+        margin: 0;
+    }
+    .footer-section.links{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .social-links {
+        justify-content: center;
+    }
+}

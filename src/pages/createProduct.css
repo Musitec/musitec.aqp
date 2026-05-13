@@ -1,0 +1,380 @@
+.create-product-cont{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:100%;
+    margin:auto;
+    padding:10px 20px;
+}
+.create-product-cont h1{
+    font-size: 34px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.create-product-flex{
+    display: flex;
+    gap: 10px;
+}
+.drop-zone{
+    flex: 1;
+    width: 100%;
+    border-radius: 8px;
+    text-align: center;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.drop-zone:hover{
+    border-color:#666;
+}
+.main-image{
+    border: 2px dashed #878787;
+    background: white;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.main-image p{
+    font-size: 200px;
+    color: #878787;
+}
+.main-image img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.preview-container{
+    height: 40px;
+    display: flex;
+    gap: 10px;
+}
+.preview-image{
+    background: white;
+    width: 120px;
+    height: 100%;
+    font-size: 25px;
+    border:2px dashed #878787;
+    border-radius: 10px;
+    color: #878787;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.preview-image img{
+    max-width: 100%;
+    max-height: 100%;
+    pointer-events: none;
+}
+.preview-image.drag-over{
+    outline:2px dashed #4da3ff;
+}
+.preview-container button{
+    background: white;
+    width: 15%;
+    height: 100%;
+    font-size: 15px;
+    border:2px dashed #878787;
+    border-radius: 10px;
+    color: #878787;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.preview-container button:hover{
+    border-color: #006eff;
+    color: #006eff;
+}
+.preview-image button{
+    position: absolute;
+    border: none;
+    font-size: 10px;
+    background: red;
+    color: white;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.preview-image button:hover{
+    color: white;
+    transform: scale(1.05);
+}
+.create-product-data{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+    justify-content: center;
+    align-items: center;
+}
+.create-product-data input{
+    border: 2px solid #878787;
+    max-width: 100%;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+.create-product-price{
+    width: 120px;
+    font-size: 20px;
+    align-self: flex-start;
+}
+.create-product-stock{
+    width: 120px;
+    font-size: 30px;
+    align-self: flex-start; 
+}
+.options-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+}
+.options-list,
+.stock-by-option{
+    display: grid;
+    grid-template-columns: repeat(6,minmax(0, 1fr));
+    gap: 20px;
+    box-sizing: border-box;
+}
+.option-item{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: white;
+    font-size: 18px;
+    border: 2px solid #878787;
+    color: #878787;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.stock-option-item{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+.stock-option-item input{
+    font-size: 20px;
+}
+.option-item button{
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    color: white;
+    background: red;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 2px 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.option-item button:hover{
+    transform: scale(1.05);
+}
+.aggregate-option{
+    width: 100%;
+    height: 40px;
+    position: relative;
+}
+.aggregate-option input{
+    width: 100%;
+    height: 100%;
+}
+.aggregate-option button{
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    color: white;
+    background: red;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 2px 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.aggregate-option button:hover{
+    transform: scale(1.05);
+}
+.product-description{
+    height: 150px;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid #878787;
+    color: #878787;
+    border-radius: 10px;
+}
+.spec-editor{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.spec-block{
+    background: white;
+    border: 2px solid #878787;
+    color: #212121;
+    border-radius: 10px;
+    padding: 2px 25px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+}
+.spec-block button{
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+    background: red;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.spec-block button:hover{
+    transform: scale(1.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.spec-add{
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid #878787;
+    color: #878787;
+    border-radius: 10px;
+}
+.spec-add select{
+    font-size: 20px;
+    padding: 5px 10px;
+    border: 2px solid #878787;
+    color: #878787;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.spec-add select:hover{
+    border-color: black;
+    color: black;
+}
+.spec-add input{
+    max-width: 150px;
+    font-size: 20px;
+    padding: 5px 10px;
+    border: 2px solid #878787;
+    color: #878787;
+    border-radius: 10px;
+}
+.spec-add button{
+    position: inherit;
+    font-size: 30px;
+    padding: 2px 10px;
+    color: white;
+    background: red;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.spec-add button:hover{
+    transform: scale(1.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.create-error{
+    font-size: 12px;
+    color: red;
+}
+.create-button{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.create-button button{
+    font-size: 20px;
+    padding: 5px 10px;
+    border: 2px solid rgb(0, 63, 152);
+    border-radius: 10px;
+    background: none;
+    color: rgb(0, 63, 152);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.create-button button:hover{
+    background: rgb(0, 63, 152);
+    color: white;
+}
+.create-button button:disabled{
+    cursor: default;
+    background: none;
+    color: rgb(0, 63, 152);
+    opacity: 0.5;
+}
+.remove-all-images{
+    font-size: 20px;
+    color: red;
+    background: none;
+    border: solid 2px red;
+    padding: 5px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.remove-all-images:hover{
+    color: white;
+    background: red;
+}
+.option-item input{
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+.create-discount-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: left;
+}
+.discount-percent{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.discount-percent input{
+    font-size: 30px;
+    width: 190px;
+}
+.discount-time-adjust{
+    font-size: 40px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.discount-time-adjust input{
+    font-size: 30px;
+    width: 30%;
+}
+@media (max-width:780px){
+    .create-product-flex{
+        flex-direction: column;
+    }
+}
