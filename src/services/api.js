@@ -1,7 +1,7 @@
 import axios from "axios"
 let sessionExpired = false
 const api=axios.create({
-    baseURL: "https://musitec-aqp.com/api/",
+    baseURL: "https://musitec-aqp.up.railway.app/api/",
     withCredentials: true
 })
 api.interceptors.request.use((config) => {
