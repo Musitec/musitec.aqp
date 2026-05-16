@@ -38,7 +38,7 @@ function Header({annonimousOrder,user, onEnterSession, onLogout, setLoading,show
     const logout = async () => {
         setLoading(true)
         try {
-            await api.post("auth/logout/")
+            await api.post("auth/logout")
             onLogout()
             navigate("/")
         } finally {
@@ -50,7 +50,7 @@ function Header({annonimousOrder,user, onEnterSession, onLogout, setLoading,show
     const logoutAll = async () => {
         setLoading(true)
         try {
-            await api.post("auth/logout-all/")
+            await api.post("auth/logout-all")
             onLogout()
             navigate("/")
         } finally {

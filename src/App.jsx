@@ -125,7 +125,7 @@ function App() {
   const onEnterSession = async () => {
     try {
       setLoadingSession(true)
-      const res = await api.get("auth/me/")
+      const res = await api.get("auth/me")
       getUser(res.data)
       setAnnonimousOrder(false)
       navigate("/")
@@ -146,7 +146,7 @@ function App() {
   const restoreSession = async () => {
     try {
       setLoadingSession(true)
-      const res = await api.get("auth/me/")
+      const res = await api.get("auth/me")
       getUser(res.data)
     } catch (err) {
       onLogout()
