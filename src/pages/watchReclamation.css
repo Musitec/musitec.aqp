@@ -98,6 +98,9 @@
     .watch-reclamation-main{
         flex-direction: column;
     }
+    .claim-history{
+        padding-top: 30px;
+    }
 }
 .accept-button{
     position: absolute;

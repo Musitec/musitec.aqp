@@ -68,3 +68,8 @@
     color: white;
     background: blue;
 }
+@media(max-width:780px){
+    .order-data-client{
+        padding-top: 20px;
+    }
+}
