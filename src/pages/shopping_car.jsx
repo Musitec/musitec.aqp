@@ -211,7 +211,7 @@ function ShowShoppingCar({user,finishAnnonimous}){
         setLoading(true)
         try {
             if (user) {
-                const res = await api.get("cart")
+                const res = await api.get("cart/my-cart")
                 setShoppingCart(res.data)
             } else {
                 const localCart = JSON.parse(localStorage.getItem("cart")) || { items: [] }
