@@ -253,6 +253,9 @@
     color: white;
 }
 @media (max-width:860px){
+    .product-selected-container{
+        padding: 10px;
+    }
     .product-selected-viewer{
         flex-direction: column;
     }
@@ -263,7 +266,7 @@
         flex-direction: column;
     }
     .buy-button{
-        width: 360px;
+        width: 330px;
         font-size: 35px;
     }
 }
