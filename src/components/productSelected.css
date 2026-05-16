@@ -129,7 +129,6 @@
 .product-selected-secondary{
     flex: 1;
     max-width: 100%;
-    padding: 0 20px;
     display: flex;
     flex-direction: column;
     gap: 5px;
