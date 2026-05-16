@@ -128,6 +128,7 @@
 }
 .product-selected-secondary{
     flex: 1;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -253,6 +254,12 @@
 }
 @media (max-width:860px){
     .product-selected-viewer{
+        flex-direction: column;
+    }
+    .options-grid{
+        grid-template-columns: repeat(3,minmax(0, 1fr));
+    }
+    .product-number-container{
         flex-direction: column;
     }
 }
