@@ -114,7 +114,7 @@ function LoginModal({ annonimousOrder,onClose, onEnterSession }) {
         setError(null)
         try {
             if(mode==="login"){
-                await api.post("auth/login/", {
+                await api.post("auth/login", {
                     email: form.email,
                     password: form.password
                 })
