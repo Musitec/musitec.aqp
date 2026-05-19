@@ -47,11 +47,6 @@ function Home({onClickProduct,session}){
         onClickProduct(id,false)
     }
     useEffect(()=>{
-        const hasSearch = Boolean(queryText && queryText.trim())
-        setSearchParams({
-            page,
-            ...(hasSearch ? { query_text: queryText } : {})
-        })
         const fetchData = async () => {
             try {
                 const res = await api.get("products/discounts")
@@ -61,24 +56,35 @@ function Home({onClickProduct,session}){
             } finally {
                 setLoadingDiscount(false)
             }
+        }
+        fetchData()
+    },[])
+    useEffect(()=>{
+        const hasSearch = Boolean(queryText && queryText.trim())
+        setSearchParams({
+            page,
+            ...(hasSearch ? { query_text: queryText } : {})
+        })
+        const fetchCatalog = async () => {
+            setLoadingPopular(true)
             try {
-                const top = await api.get("products/catalog", {
+                const res = await api.get("products/catalog", {
                     params: {
                         page,
                         ...(hasSearch ? { query_text: queryText } : {})
                     }
                 })
-                setPopular(top.data.products||[])
-                setMaxPages(top.data.max_pages)
-                setTotalProducts(top.data.total_products)
+                setPopular(res.data.products || [])
+                setMaxPages(res.data.max_pages)
+                setTotalProducts(res.data.total_products)
             } catch (error) {
                 setErrorPopular(getErrorMessage(error))
-            }finally{
+            } finally {
                 setLoadingPopular(false)
             }
         }
-        fetchData()
-    },[])
+        fetchCatalog()
+    },[page, queryText])
     return(
     <div className="container">
         <Proyects/>
