@@ -24,7 +24,7 @@ function SearchBar({ value, onSearch }) {
                 value={text||""}
                 onChange={(e) => setText(e.target.value)}
             />
-            <button type="submit">Buscar</button>
+            <button type="submit"><i className="bi bi-search"></i></button>
         </form>
     )
 }

@@ -172,7 +172,4 @@
     .bar-container h2{
         font-size: 20px;
     }
-    .search-bar{
-        flex-direction: column;
-    }
 }

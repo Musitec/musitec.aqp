@@ -45,7 +45,7 @@ function SearchBars({ userEmail, employeeEmail, code, onSearch }) {
                 />
             </div>
             <div className="search-button-content">
-                <button type="submit">Buscar</button>
+                <button type="submit"><i className="bi bi-search"></i></button>
             </div>
         </form>
     )
