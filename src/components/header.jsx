@@ -235,7 +235,6 @@ function Header({annonimousOrder,user, onEnterSession, onLogout, setLoading,show
                         <li><button onClick={()=>goTo("/products")} disabled={location.pathname==="/products"}>Productos</button></li>
                         <li><button onClick={()=>goTo("/about-us")} disabled={location.pathname==="/about-us"}>Sobre nosotros</button></li>
                         <li><button onClick={()=>goTo("/contact-us")} disabled={location.pathname==="/contact-us"}>Contactanos</button></li>
-                        <li><button onClick={()=>reclamationBook()} disabled={location.pathname==="/reclamation"||location.pathname==="/reclamation-staff"||location.pathname==="/reclamation-user"}>Soporte</button></li>
                     </ul>
                 </nav>    
             </div>
