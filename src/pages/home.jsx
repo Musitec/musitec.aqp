@@ -1,14 +1,45 @@
 import { useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
 import api from "../services/api"
 import Discounts from "../components/discounts"
 import Popular from "../components/popular"
 import Proyects from "../components/proyects"
-import "./home.css"
 import getErrorMessage from "../components/getError"
+import "./home.css"
+
+function SearchBar({ value, onSearch }) {
+    const [text, setText] = useState(value)
+    useEffect(() => {
+        setText(value)
+    }, [value])
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        onSearch(text.trim() || null)
+    }
+    return (
+        <form className="search-bar" onSubmit={handleSubmit}>
+            <input
+                type="text"
+                placeholder="Buscar productos..."
+                value={text||""}
+                onChange={(e) => setText(e.target.value)}
+            />
+            <button type="submit">Buscar</button>
+        </form>
+    )
+}
+
 function Home({onClickProduct,session}){
+    const [searchParams,setSearchParams]=useSearchParams()
+    const pageFromUrl = Number(searchParams.get("page")) || 0
+    const queryTextFromUrl = searchParams.get("query_text") || null
     const [discounts,setDiscounts]=useState([])
     const [loadingDiscount,setLoadingDiscount]=useState(true)
     const [errorDiscount, setErrorDiscount]=useState(null)
+    const [page, setPage] = useState(pageFromUrl)
+    const [maxPages, setMaxPages] = useState(0)
+    const [totalProducts, setTotalProducts]=useState(0)
+    const [queryText,setQueryText] = useState(queryTextFromUrl)
     const [popular,setPopular]=useState([])
     const [loadingPopular,setLoadingPopular]=useState(true)
     const [errorPopular,setErrorPopular]=useState(null)
@@ -16,6 +47,11 @@ function Home({onClickProduct,session}){
         onClickProduct(id,false)
     }
     useEffect(()=>{
+        const hasSearch = Boolean(queryText && queryText.trim())
+        setSearchParams({
+            page,
+            ...(hasSearch ? { query_text: queryText } : {})
+        })
         const fetchData = async () => {
             try {
                 const res = await api.get("products/discounts")
@@ -26,8 +62,15 @@ function Home({onClickProduct,session}){
                 setLoadingDiscount(false)
             }
             try {
-                const top = await api.get("products/top/8")
+                const top = await api.get("products/catalog", {
+                    params: {
+                        page,
+                        ...(hasSearch ? { query_text: queryText } : {})
+                    }
+                })
                 setPopular(top.data.products||[])
+                setMaxPages(top.data.max_pages)
+                setTotalProducts(top.data.total_products)
             } catch (error) {
                 setErrorPopular(getErrorMessage(error))
             }finally{
@@ -46,9 +89,26 @@ function Home({onClickProduct,session}){
         <div className="discount">
             <Discounts loading={loadingDiscount} error={errorDiscount} products={discounts} onClickProduct={productClickHome} session={session}/>
         </div>
-        <h1>Los productos top</h1>
+        <h1>Busca tu producto</h1>
         <div className="popular">
+            <SearchBar
+                value={queryText}
+                onSearch={(value) => {
+                    setQueryText(value)
+                    setPage(0)
+                }}
+            />
             <Popular loading={loadingPopular} error={errorPopular} products={popular} onClickProduct={productClickHome}/>
+            <div className="pagination">
+                <div className="page-buttons">
+                    <button disabled={page<=0} onClick={()=>setPage(0)}>{"<<"}</button>
+                    <button disabled={page<=0} onClick={()=>setPage((p)=>{return p-1})}>{"<"}</button>
+                    <p>Pag. {page+1} de {maxPages}</p>
+                    <button disabled={page>=maxPages-1} onClick={()=>setPage((p)=>{return p+1})}>{">"}</button>
+                    <button disabled={page>=maxPages-1} onClick={()=>setPage(maxPages-1)}>{">>"}</button>
+                </div>
+                <p>{8*page+1}-{totalProducts>8*(page+1)?(8*(page+1)):totalProducts} de {totalProducts}</p>
+            </div>
         </div>
     </div>
     )
