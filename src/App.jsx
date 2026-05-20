@@ -214,7 +214,7 @@ function App() {
           </Routes>
         </main>
         <a href={`https://wa.me/51974321655?text=${encodeURIComponent(
-          "Hola. Quisiera más información, por favor."
+          "Hola, tengo una consulta, ¿me das información? Gracias 😊"
         )}`} target="_blank" rel="noopener noreferrer"className="whatsapp-btn">
           <i className='bi bi-whatsapp'></i></a>
         <Footer user={user}/>
