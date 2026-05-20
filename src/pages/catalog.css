@@ -173,8 +173,3 @@
         font-size: 20px;
     }
 }
-@media (max-width:580px){
-    .search-bar{
-        margin: 0;
-    }
-}
