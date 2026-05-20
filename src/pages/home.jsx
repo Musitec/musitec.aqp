@@ -94,19 +94,6 @@ function Home({onClickProduct,session}){
                 setPage(0)
             }}
         />
-        <div className="popular">
-            <Popular loading={loadingPopular} error={errorPopular} products={popular} onClickProduct={productClickHome}/>
-            <div className="pagination">
-                <div className="page-buttons">
-                    <button disabled={page<=0} onClick={()=>setPage(0)}>{"<<"}</button>
-                    <button disabled={page<=0} onClick={()=>setPage((p)=>{return p-1})}>{"<"}</button>
-                    <p>Pag. {page+1} de {maxPages}</p>
-                    <button disabled={page>=maxPages-1} onClick={()=>setPage((p)=>{return p+1})}>{">"}</button>
-                    <button disabled={page>=maxPages-1} onClick={()=>setPage(maxPages-1)}>{">>"}</button>
-                </div>
-                <p>{8*page+1}-{totalProducts>8*(page+1)?(8*(page+1)):totalProducts} de {totalProducts}</p>
-            </div>
-        </div>
         <div className="container">
             <h1>Busca tu producto</h1>
             <Proyects/>
@@ -116,6 +103,19 @@ function Home({onClickProduct,session}){
             }
             <div className="discount">
                 <Discounts loading={loadingDiscount} error={errorDiscount} products={discounts} onClickProduct={productClickHome} session={session}/>
+            </div>
+            <div className="popular">
+                <Popular loading={loadingPopular} error={errorPopular} products={popular} onClickProduct={productClickHome}/>
+                <div className="pagination">
+                    <div className="page-buttons">
+                        <button disabled={page<=0} onClick={()=>setPage(0)}>{"<<"}</button>
+                        <button disabled={page<=0} onClick={()=>setPage((p)=>{return p-1})}>{"<"}</button>
+                        <p>Pag. {page+1} de {maxPages}</p>
+                        <button disabled={page>=maxPages-1} onClick={()=>setPage((p)=>{return p+1})}>{">"}</button>
+                        <button disabled={page>=maxPages-1} onClick={()=>setPage(maxPages-1)}>{">>"}</button>
+                    </div>
+                    <p>{8*page+1}-{totalProducts>8*(page+1)?(8*(page+1)):totalProducts} de {totalProducts}</p>
+                </div>
             </div>
         </div>
         </>
