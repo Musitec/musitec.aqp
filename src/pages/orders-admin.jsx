@@ -123,7 +123,7 @@ function SearchBars({ userEmail, code, onSearch }) {
         })
     }
     return (
-        <form className="search-bars" onSubmit={handleSubmit}>
+        <form className="orders-search-bars" onSubmit={handleSubmit}>
             <div className="inputs-content">
                 <input
                     type="text"

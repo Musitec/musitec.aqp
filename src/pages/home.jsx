@@ -87,14 +87,14 @@ function Home({onClickProduct,session}){
     },[page, queryText])
     return(
         <>
-        <div className="popular">
-            <SearchBar
-                value={queryText}
+        <SearchBar
+            value={queryText}
                 onSearch={(value) => {
-                    setQueryText(value)
-                    setPage(0)
-                }}
-            />
+                setQueryText(value)
+                setPage(0)
+            }}
+        />
+        <div className="popular">
             <Popular loading={loadingPopular} error={errorPopular} products={popular} onClickProduct={productClickHome}/>
             <div className="pagination">
                 <div className="page-buttons">
