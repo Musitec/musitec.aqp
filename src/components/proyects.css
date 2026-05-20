@@ -90,16 +90,16 @@
 }
 @media (max-width:780px){
     .hero{
-        height: 300px;
+        height: 250px;
     }
     .hero-content h2{
-        font-size: 24px;
+        font-size: 20px;
     }
     .hero-content p{
-        font-size: 14px;
+        font-size: 10px;
     }
     .link-content a{
-        font-size: 14px;
+        font-size: 10px;
         padding: 8px 16px;
     }
 }
