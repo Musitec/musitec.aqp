@@ -182,15 +182,15 @@ function UserControlPannel({myUser}){
                 <div className="users-selector">
                     <RenderFilters isBlocked={isBlocked} role={role} onChangeIsBlocked={onChangeIsBlocked} onChangeRole={onChangeRole} text={search}/>
                 </div>
-                <div className="users-searcher">
-                    <SearchBar
-                        value={search}
-                        onSearch={(value) => {
-                            setSearch(value)
-                            setPage(0)
-                        }}
-                    />
-                </div>
+            </div>
+            <div className="users-searcher">
+                <SearchBar
+                    value={search}
+                    onSearch={(value) => {
+                        setSearch(value)
+                        setPage(0)
+                    }}
+                />
             </div>
             {loading&&
                <div className="err-mess">
