@@ -95,7 +95,6 @@ function Home({onClickProduct,session}){
             }}
         />
         <div className="container">
-            <h1>Busca tu producto</h1>
             <Proyects/>
             <h1>Nuestros descuentos para ti</h1>
             {session===false&&
@@ -105,6 +104,7 @@ function Home({onClickProduct,session}){
                 <Discounts loading={loadingDiscount} error={errorDiscount} products={discounts} onClickProduct={productClickHome} session={session}/>
             </div>
             <div className="popular">
+                <h1>Productos de la busqueda</h1>
                 <Popular loading={loadingPopular} error={errorPopular} products={popular} onClickProduct={productClickHome}/>
                 <div className="pagination">
                     <div className="page-buttons">
