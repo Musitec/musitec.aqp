@@ -86,8 +86,7 @@ function Home({onClickProduct,session}){
         fetchCatalog()
     },[page, queryText])
     return(
-    <div className="container">
-        <h1>Busca tu producto</h1>
+        <>
         <div className="popular">
             <SearchBar
                 value={queryText}
@@ -108,15 +107,18 @@ function Home({onClickProduct,session}){
                 <p>{8*page+1}-{totalProducts>8*(page+1)?(8*(page+1)):totalProducts} de {totalProducts}</p>
             </div>
         </div>
-        <Proyects/>
-        <h1>Nuestros descuentos para ti</h1>
-        {session===false&&
-            <p style={{fontSize:"16px", margin: "5px 40px"}}>Solo valido para usuarios registrados.</p>
-        }
-        <div className="discount">
-            <Discounts loading={loadingDiscount} error={errorDiscount} products={discounts} onClickProduct={productClickHome} session={session}/>
+        <div className="container">
+            <h1>Busca tu producto</h1>
+            <Proyects/>
+            <h1>Nuestros descuentos para ti</h1>
+            {session===false&&
+                <p style={{fontSize:"16px", margin: "5px 40px"}}>Solo valido para usuarios registrados.</p>
+            }
+            <div className="discount">
+                <Discounts loading={loadingDiscount} error={errorDiscount} products={discounts} onClickProduct={productClickHome} session={session}/>
+            </div>
         </div>
-    </div>
+        </>
     )
 }
 export default Home
