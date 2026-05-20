@@ -213,7 +213,9 @@ function App() {
             <Route path="show-user/:id" element={<ShowUser myUser={user}/>}/>
           </Routes>
         </main>
-        <a href='https://wa.me/51974321655' target="_blank" rel="noopener noreferrer"className="whatsapp-btn">
+        <a href={`https://wa.me/51974321655?text=${encodeURIComponent(
+          "Hola. Quisiera más información, por favor."
+        )}`} target="_blank" rel="noopener noreferrer"className="whatsapp-btn">
           <i className='bi bi-whatsapp'></i></a>
         <Footer user={user}/>
       </div>

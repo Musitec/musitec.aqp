@@ -13,7 +13,7 @@ function Proyects(){
             <div className={`bg bg1 ${showFirst ? "visible" : "hidden"}`}></div>
             <div className={`bg bg2 ${showFirst ? "hidden" : "visible"}`}></div>
             <div className="hero-content">
-                <h2 style={{fontSize:"40px"}}>¿Tienes una idea? Nosotros te ayudamos a construirla</h2>
+                <h2>¿Tienes una idea? Nosotros te ayudamos a construirla</h2>
                 <p>Desarrollamos proyectos electrónicos personalizados paso a paso contigo.</p>
                 <div className="link-content">
                     <a

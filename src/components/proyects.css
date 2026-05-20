@@ -58,6 +58,9 @@
 .hero-content p{
     margin: 0;
 }
+.hero-content h2{
+    font-size: 40px;
+}
 .link-content{
     width: 100%;
     padding: auto;
@@ -84,4 +87,19 @@
 @keyframes moveRight {
     0% { transform: translateX(-10%); }
     100% { transform: translateX(0); }
+}
+@media (max-width:780px){
+    .hero{
+        height: 300px;
+    }
+    .hero-content h2{
+        font-size: 24px;
+    }
+    .hero-content p{
+        font-size: 14px;
+    }
+    .link-content a{
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
