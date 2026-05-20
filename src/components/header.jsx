@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import EditUserPanel from "./editPanel"
-import logo from "../logo/Robot.png"
+import logo from "../logo/logotipo.jpg"
 import LoginModal from "./login"
 import api from "../services/api"
 import "./header.css"
