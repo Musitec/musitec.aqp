@@ -79,7 +79,7 @@
     gap: 1.5rem;
 }
 .form-group label {
-    width: 25%;
+    width: 20%;
     text-align: right;
     font-weight: bold;
     color: #333;
@@ -164,5 +164,8 @@
 @media (max-width:780px){
     .presentation{
         flex-direction: column;
+    }
+    .form-group label{
+        font-size: 12px;
     }
 }
