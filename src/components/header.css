@@ -102,7 +102,7 @@ header{
     color: white;
     font-size: 20px;
     height: 100%;
-    padding: 0 20px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -145,7 +145,6 @@ header{
     background: rgb(241, 246, 255);
     transform: scale(1.05);
 }
-
 .anon-container i{
     font-size: 40px;
 }
@@ -285,7 +284,7 @@ header{
     position: absolute;
     top: 110%;
     right: 0;
-    min-width: 180px; /* más ancho */
+    min-width: 180px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
@@ -324,21 +323,44 @@ header{
 }
 @media (max-width:780px){
     .upper-header{
-        padding: 10px 20px;
+        height: 60px;
+        padding: 10px 40px;
+    }
+    .anon-container i{
+        font-size: 30px;
     }
     .burger-container{
         width: 100%;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
         padding: 0 30px;
     }
     .burger {
+        width: 30px;
+        height: 25px;
         position: relative;
+    }
+    .burger span {
+        width: 100%;
+        height: 2px;
+        border-radius: 1px;
+    }
+    .burger span:nth-child(2) {
+        top: 12px;
+    }
+    .burger.open span:nth-child(1) {
+        transform: rotate(45deg);
+        top: 12px;
+    }
+    .burger.open span:nth-child(3) {
+        transform: rotate(-45deg);
+        bottom: 11px;
     }
     .menu {
         position: fixed;
-        top: 170px;
+        top: 110px;
         left: 0;
         width: 100%;
         height: 400px;
@@ -358,12 +380,14 @@ header{
     .menu-container > ul {
         flex-direction: column;
         background: linear-gradient(45deg, rgb(0,40,120), rgb(0,29,86));
+        gap: 5px;
     }
     .menu-container > ul > li {
         width: 100%;
     }
     .menu-container > ul > li > button {
         width: 100%;
+        font-size: 18px;
         text-align: left;
     }
     .menu-container > ul > li:not(:last-child)::after {
@@ -462,7 +486,6 @@ header{
         opacity: 1;
         pointer-events: auto;
     }
-
     .logout-submenu.mobile.open {
         max-height: 300px;
     }
