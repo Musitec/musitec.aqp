@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import "./discount.css"
 import ShowError from "./error"
+
 function ProssessDiscounts({products, onClickProduct}){
     const SLIDE_TIME = 5000
     const remainingTimeRef = useRef(SLIDE_TIME)
@@ -149,7 +150,7 @@ function ShowDiscount({product,onClickProduct,progress,onHover,transitioning}){
                     </div>
                 </div>
                 <div className="discount-information">
-                    <h3>{product.name}</h3>
+                    <h3>{truncateText(product.name,20)}</h3>
                     <div className="discount-prices">
                         <p className="normal-price">S/{product.price.toFixed(2)}</p>
                         <p className="discount-price">S/{discountAdjust(product.price,product.discount).toFixed(2)}</p>
