@@ -44,7 +44,7 @@ function ShowOptions({
                     {
                         option
                             ? labels[values.indexOf(option)]
-                            : "Selecciona una opción"
+                            : ""
                     }
                 </div>
                 <div 
