@@ -171,11 +171,9 @@ function Catalog({onClickProduct}){
                     />
                 </div>
             }
-            <div className="mobile-filters-container">
-
+            <div className="mobile-filters-container" ref={filtersRef}>
                 <button
                     className="mobile-filters-button"
-                    ref={filtersRef}
                     onClick={() => setShowFilters(prev => !prev)}
                 >
                     Buscar por:
