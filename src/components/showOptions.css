@@ -5,7 +5,7 @@
 .selected-box{
     font-size: 20px;
     padding: 10px 5px;
-    border-bottom: 4px solid #3498db;
+    border-bottom: 4px solid blue;
     border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
@@ -47,9 +47,30 @@
     width: 8px;
 }
 .options-container::-webkit-scrollbar-thumb{
-    background: #3498db;
+    background: blue;
     border-radius: 20px;
 }
 .options-container::-webkit-scrollbar-track{
     background: #f1f1f1;
+}
+.option-item{
+    border: none;
+    background: none;
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.option-item:hover{
+    background: #aaa;
+}
+.option-item:disabled{
+    cursor: default;
+    background: none;
+    opacity: 0.7;
+}
+@media(max-width:780px){
+    .option-item{
+        font-size: 16px;
+    }
 }

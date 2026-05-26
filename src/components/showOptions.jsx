@@ -58,13 +58,14 @@ function ShowOptions({
                         labels.map((label, index) => {
                             const value = values[index]
                             return (
-                                <div
+                                <button
                                     key={value}
                                     className="option-item"
                                     onClick={() => handleSelect(value)}
+                                    disabled={value===option}
                                 >
                                     {label}
-                                </div>
+                                </button>
                             )
                         })
                     }
