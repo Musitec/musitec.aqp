@@ -1,6 +1,7 @@
 .custom-select{
-    width: 250px;
+    width: 100%;
     position: relative;
+    background: white;
 }
 .selected-box{
     font-size: 20px;
@@ -18,7 +19,8 @@
     width: 100%;
     background: white;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     max-height: 0;
     opacity: 0;
     transform: translateY(-10px);
@@ -28,17 +30,20 @@
         transform 0.3s ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     z-index: 100;
+    user-select: none;
 }
 .options-container.open{
-    max-height: 300px;
+    max-height: 250px;
     opacity: 1;
     transform: translateY(0);
 }
-.option-item{
-    padding: 12px;
-    cursor: pointer;
-    transition: background 0.2s;
+.options-container::-webkit-scrollbar{
+    width: 8px;
 }
-.option-item:hover{
-    background: #f0f8ff;
+.options-container::-webkit-scrollbar-thumb{
+    background: #3498db;
+    border-radius: 20px;
+}
+.options-container::-webkit-scrollbar-track{
+    background: #f1f1f1;
 }
