@@ -507,7 +507,7 @@ header{
     .user-container-header{
         max-height: 45px;
         padding: 4px 8px;
-        gap: 2px;
+        gap: 5px;
         border-radius: 8px;
     }
     .user-container-header i{
