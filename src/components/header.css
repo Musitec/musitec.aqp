@@ -148,6 +148,9 @@ header{
 .anon-container i{
     font-size: 40px;
 }
+.user-logo{
+    font-size: 50px;
+}
 .user-data{
     font-size: 12px;
 }
@@ -500,5 +503,11 @@ header{
     }
     .logout-submenu.mobile button:hover{
         background: #c7c8c9;
+    }
+    .user-logo{
+        font-size: 40px;
+    }
+    .user-data{
+        font-size: 8px;
     }
 }

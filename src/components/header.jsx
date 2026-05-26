@@ -133,7 +133,7 @@ function Header({annonimousOrder,user, onEnterSession, onLogout, setLoading,show
                     className="user-container"
                     onClick={() => setShowUserMenu(prev => !prev)}
                     >
-                        <i className="bi bi-person-circle" style={{fontSize:"50px"}}></i>
+                        <i className="bi bi-person-circle user-logo"></i>
                         <div className="user-data">
                             <p>Hola: <strong>{truncateText(user.email, 15)}</strong></p>
                             <p>Edad: {user.age} años</p>
