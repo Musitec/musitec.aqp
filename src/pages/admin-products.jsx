@@ -115,42 +115,38 @@ function ShowInteractions({active,onChangeActive,blocked,onChangeBlocked,stock,o
     const orderLabels=["Popularidad","Mayor a menor edad","Menor a mayor edad","Mayor a menor stock","Mayor a menor precio","Menor a mayor precio"]
     return(
         <div className="interactions-flex">
-            <div className="interactions-container">
-                <ShowOptions
-                    title={"Activados"}
-                    labels={activeLabels}
-                    values={activeValues}
-                    option={active}
-                    onChangeOption={onChangeActive}
-                    text={text}
-                />
-                <ShowOptions
-                    title={"Bloqueados"}
-                    labels={blockedLabels}
-                    values={blockedValues}
-                    option={blocked}
-                    onChangeOption={onChangeBlocked}
-                    text={text}
-                />
-            </div>
-            <div className="interactions-container">
-                <ShowOptions
-                    title={"Stock"}
-                    labels={stockLabels}
-                    values={stockValues}
-                    option={stock}
-                    onChangeOption={onChangeStock}
-                    text={text}
-                />
-                <ShowOptions
-                    title={"Orden"}
-                    labels={orderLabels}
-                    values={orderValues}
-                    option={order}
-                    onChangeOption={onChangeOrder}
-                    text={text}
-                />
-            </div>
+            <ShowOptions
+                title={"Activados"}
+                labels={activeLabels}
+                values={activeValues}
+                option={active}
+                onChangeOption={onChangeActive}
+                text={text}
+            />
+            <ShowOptions
+                title={"Bloqueados"}
+                labels={blockedLabels}
+                values={blockedValues}
+                option={blocked}
+                onChangeOption={onChangeBlocked}
+                text={text}
+            />
+            <ShowOptions
+                title={"Stock"}
+                labels={stockLabels}
+                values={stockValues}
+                option={stock}
+                onChangeOption={onChangeStock}
+                text={text}
+            />
+            <ShowOptions
+                title={"Orden"}
+                labels={orderLabels}
+                values={orderValues}
+                option={order}
+                onChangeOption={onChangeOrder}
+                text={text}
+            />
         </div>
     )
 }

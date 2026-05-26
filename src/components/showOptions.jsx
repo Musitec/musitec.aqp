@@ -41,7 +41,7 @@ function ShowOptions({
                     onClick={() => !text && setOpen(!open)}
                 >
                     {
-                        option
+                        option !== null && option !== undefined
                             ? <div style={{"display":"flex","alignItems":"end"}}><strong style={{"fontSize":"20px"}}>{title}</strong><p style={{"fontSize":"16px"}}>{open?"":"/"+labels[values.indexOf(option)]}</p></div>
                             : ""
                     }
