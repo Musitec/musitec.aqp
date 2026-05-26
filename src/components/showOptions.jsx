@@ -35,7 +35,7 @@ function ShowOptions({
     }
     return (
         <div className="bar-container">
-            <div><strong style={{"fontSize":"24px"}}>{title}</strong>/<p style={{"fontSize":"24px"}}>{open?"":values.indexOf(option)}</p></div>
+            <div><strong style={{"fontSize":"24px"}}>{title}</strong>/<p style={{"fontSize":"24px"}}>{open?"":labels[values.indexOf(option)]}</p></div>
             <div className="custom-select">
                 <div
                     className="selected-box"
@@ -75,4 +75,4 @@ function ShowOptions({
     )
 }
 
-export default ShowOptions
+export default ShowOptionsY
