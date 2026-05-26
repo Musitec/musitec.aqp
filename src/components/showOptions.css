@@ -10,6 +10,13 @@
     cursor: pointer;
     transition: 0.3s;
 }
+.selected-box.disabled{
+    opacity:0.7;
+    cursor: default;
+}
+.selected-box.disabled:hover{
+    border-bottom-color: none;
+}
 .selected-box:hover{
     border-bottom-color: #5dade2;
 }

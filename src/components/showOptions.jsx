@@ -37,7 +37,7 @@ function ShowOptions({
         <div className="bar-container">
             <div className="custom-select">
                 <div
-                    className="selected-box"
+                    className={`selected-box ${text!==null?"disabled":""}`}
                     onClick={() => !text && setOpen(!open)}
                 >
                     {

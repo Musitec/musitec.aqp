@@ -3,7 +3,6 @@
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 20px;
 }
 .bar-container {
@@ -164,6 +163,7 @@
     }
     .filters{
         flex-direction: column;
+        gap: 5px;
     }
     .pagination,
     .page-buttons{
