@@ -123,6 +123,13 @@ function Catalog({onClickProduct}){
     }
     return(
         <>
+            <SearchBar
+                value={queryText}
+                onSearch={(value) => {
+                    setQueryText(value)
+                    setPage(0)
+                }}
+            />
             {catalogs.length>0&&
                 <div className="filters">
                     <RenderCatalog 
@@ -148,13 +155,6 @@ function Catalog({onClickProduct}){
                     />
                 </div>
             }
-            <SearchBar
-                value={queryText}
-                onSearch={(value) => {
-                    setQueryText(value)
-                    setPage(0)
-                }}
-            />
             {loading&&
                <div className="err-mess">
                     <p>Cargando...</p>
