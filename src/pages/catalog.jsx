@@ -122,7 +122,7 @@ function Catalog({onClickProduct}){
         onClickProduct(id,queryText!==null)
     }
     return(
-        <>
+        <div className="catalog_container">
             <SearchBar
                 value={queryText}
                 onSearch={(value) => {
@@ -180,7 +180,7 @@ function Catalog({onClickProduct}){
                     </div>
                 </div>
             )}
-        </>
+        </div>
     )
 }
 export default Catalog
