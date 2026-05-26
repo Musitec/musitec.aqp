@@ -123,7 +123,7 @@ header{
     );
     pointer-events: none;
 }
-.user-container{
+.user-container-header{
     display: flex;
     align-items: center;
     gap: 20px;
@@ -133,7 +133,6 @@ header{
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
-    max-height: 100%;
 }
 .anon-container{
     cursor: pointer;
@@ -141,7 +140,7 @@ header{
     background: white;
     transition: all 0.2s ease;
 }
-.user-container:hover,
+.user-container-header:hover,
 .anon-container:hover{
     background: rgb(241, 246, 255);
     transform: scale(1.05);
@@ -149,7 +148,7 @@ header{
 .anon-container i{
     font-size: 40px;
 }
-.user-container i{
+.user-container-header i{
     font-size: 50px;
 }
 .user-data{
@@ -505,13 +504,20 @@ header{
     .logout-submenu.mobile button:hover{
         background: #c7c8c9;
     }
-    .user-container{
-        padding: 5px;
+    .user-container-header{
+        max-height: 45px;
+        padding: 4px 8px;
+        gap: 2px;
+        border-radius: 8px;
     }
-    .user-container i{
-        font-size: 40px;
+    .user-container-header i{
+        font-size: 28px;
     }
     .user-data{
-        font-size: 8px;
+        font-size: 7px;
+        line-height: 1.1;
+    }
+    .user-data p{
+        margin: 0;
     }
 }

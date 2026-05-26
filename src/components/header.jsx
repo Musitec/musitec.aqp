@@ -130,7 +130,7 @@ function Header({annonimousOrder,user, onEnterSession, onLogout, setLoading,show
                 :
                 <div className="user-wrapper" ref={userRef}>
                     <div
-                    className="user-container"
+                    className="user-container-header"
                     onClick={() => setShowUserMenu(prev => !prev)}
                     >
                         <i className="bi bi-person-circle"></i>
