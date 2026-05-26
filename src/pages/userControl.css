@@ -9,6 +9,10 @@
 .users-searcher{
     flex: 1;
 }
+.users-selector{
+    display: flex;
+    gap: 10px;
+}
 .user-control-content{
     width: 100%;
     height: 350px;
@@ -45,5 +49,9 @@
     .users-searcher,
     .users-selector{
         width: 100%;
+    }
+    .users-selector{
+        flex-direction: column;
+        gap: 5px;
     }
 }

@@ -266,6 +266,14 @@ function ShowDashboardProducts(){
     }
     return(
         <>
+            <SearchBar
+                value={search}
+                onSearch={(value) => {
+                    setSearch(value)
+                    setPage(0)
+                    setPageSize(8)
+                }}
+            />
             <ShowInteractions
                 active={active}
                 onChangeActive={setActive}
@@ -276,14 +284,6 @@ function ShowDashboardProducts(){
                 order={order}
                 onChangeOrder={setOrder}
                 text={search}
-            />
-            <SearchBar
-                value={search}
-                onSearch={(value) => {
-                    setSearch(value)
-                    setPage(0)
-                    setPageSize(8)
-                }}
             />
             {loading&&
                 <div className="err-mess">
