@@ -35,7 +35,6 @@ function ShowOptions({
     }
     return (
         <div className="bar-container">
-            <div style={{"display":"flex","alignItems":"end"}}><strong style={{"fontSize":"20px"}}>{title}</strong><p style={{"fontSize":"16px"}}>{open?"":"/"+labels[values.indexOf(option)]}</p></div>
             <div className="custom-select">
                 <div
                     className="selected-box"
@@ -43,7 +42,7 @@ function ShowOptions({
                 >
                     {
                         option
-                            ? labels[values.indexOf(option)]
+                            ? <div style={{"display":"flex","alignItems":"end"}}><strong style={{"fontSize":"20px"}}>{title}</strong><p style={{"fontSize":"16px"}}>{open?"":"/"+labels[values.indexOf(option)]}</p></div>
                             : ""
                     }
                 </div>
