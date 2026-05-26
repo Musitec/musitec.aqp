@@ -85,6 +85,7 @@ function Catalog({onClickProduct}){
     const [loading,setLoading]=useState(true)
     const [error, setError]=useState(null)
     const [showFilters, setShowFilters] = useState(false)
+    const filtersRef = useRef(null)
     useEffect(()=>{
         const hasSearch = Boolean(queryText && queryText.trim())
         setSearchParams({
@@ -119,6 +120,20 @@ function Catalog({onClickProduct}){
         }
         fetchProducts()
     },[page, catalog, order, discount, queryText])
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if(
+                filtersRef.current &&
+                !filtersRef.current.contains(e.target)
+            ){
+                setShowFilters(false)
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [])
     const productClickHome=(id)=>{
         onClickProduct(id,queryText!==null)
     }
@@ -160,6 +175,7 @@ function Catalog({onClickProduct}){
 
                 <button
                     className="mobile-filters-button"
+                    ref={filtersRef}
                     onClick={() => setShowFilters(prev => !prev)}
                 >
                     Buscar por:
