@@ -84,6 +84,7 @@ function Catalog({onClickProduct}){
     const [products,setProducts]=useState([])
     const [loading,setLoading]=useState(true)
     const [error, setError]=useState(null)
+    const [showFilters, setShowFilters] = useState(false)
     useEffect(()=>{
         const hasSearch = Boolean(queryText && queryText.trim())
         setSearchParams({
@@ -155,6 +156,38 @@ function Catalog({onClickProduct}){
                     />
                 </div>
             }
+            <div className="mobile-filters-container">
+
+                <button
+                    className="mobile-filters-button"
+                    onClick={() => setShowFilters(prev => !prev)}
+                >
+                    Buscar por:
+                </button>
+                <div className={`mobile-filters ${showFilters ? "open" : ""}`}>
+                    <RenderCatalog
+                        catalogs={catalogs} catalog={catalog} 
+                        onChangeCatalog={(cat) => {
+                            setCatalog(cat);
+                            setPage(0);
+                        }}
+                        text={queryText}
+                    />
+                    <RenderFilters
+                        order={order}
+                        discounts={discount}
+                        onChangeOrder={(value) => {
+                            setOrder(value);
+                            setPage(0);
+                        }}
+                        onChangeDiscount={(value) => {
+                            setDiscount(value);
+                            setPage(0);
+                        }}
+                        text={queryText}
+                    />
+                </div>
+            </div>
             {loading&&
                <div className="err-mess">
                     <p>Cargando...</p>
@@ -172,7 +205,7 @@ function Catalog({onClickProduct}){
                         <div className="page-buttons">
                             <button disabled={page<=0} onClick={()=>setPage(0)}>{"<<"}</button>
                             <button disabled={page<=0} onClick={()=>setPage((p)=>{return p-1})}>{"<"}</button>
-                            <p>Pag. {page+1} de {maxPages}</p>
+                            <p>{page+1}/{maxPages}</p>
                             <button disabled={page>=maxPages-1} onClick={()=>setPage((p)=>{return p+1})}>{">"}</button>
                             <button disabled={page>=maxPages-1} onClick={()=>setPage(maxPages-1)}>{">>"}</button>
                         </div>
