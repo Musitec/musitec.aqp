@@ -504,6 +504,9 @@ header{
     .logout-submenu.mobile button:hover{
         background: #c7c8c9;
     }
+    .user-container{
+        padding: 5px;
+    }
     .user-container i{
         font-size: 40px;
     }
