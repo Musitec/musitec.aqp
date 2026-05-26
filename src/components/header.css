@@ -133,6 +133,7 @@ header{
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
+    max-height: 100%;
 }
 .anon-container{
     cursor: pointer;
