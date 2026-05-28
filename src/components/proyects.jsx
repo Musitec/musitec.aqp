@@ -14,7 +14,7 @@ function Proyects(){
             <div className={`bg bg2 ${showFirst ? "hidden" : "visible"}`}></div>
             <div className="hero-content">
                 <h2>¿Tienes una idea? Nosotros te ayudamos a construirla</h2>
-                <p>Desarrollamos proyectos electrónicos personalizados paso a paso contigo.</p>
+                <p>Desarrollamos proyectos electrónicos robóticos personalizados.</p>
                 <div className="link-content">
                     <a
                         href={`https://wa.me/51974321655?text=${encodeURIComponent(
