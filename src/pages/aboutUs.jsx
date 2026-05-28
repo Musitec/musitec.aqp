@@ -7,15 +7,16 @@ function AboutUs(){
                 <div className="about-text">
                     <h1>Sobre Nosotros</h1>
                     <p>
-                        En <strong>Musitec</strong> nos apasiona ofrecer productos de calidad
-                        con un servicio confiable, claro y transparente. Desde nuestros inicios,
-                        trabajamos para brindar una experiencia de compra sencilla,
-                        rápida y segura.
+                        En Musitec creemos en hacer que la tecnología y las novedades estén al
+                        alcance de todos. Trabajamos constantemente para ofrecer productos modernos,
+                        útiles e innovadores, adaptándonos a las nuevas tendencias y a las 
+                        necesidades de cada persona.
                     </p>
                     <p>
-                        Nuestro objetivo es acercar la tecnología y los productos útiles
-                        a todas las personas, ofreciendo siempre una excelente relación
-                        entre calidad y precio.
+                        Desde nuestros inicios, nuestro objetivo ha sido brindar una experiencia de
+                        compra sencilla, rápida y segura, con atención clara y transparente en cada paso.
+                        Buscamos acercar la tecnología a más personas, ofreciendo siempre una excelente
+                        relación entre innovación, funcionalidad y precio.
                     </p>
                 </div>
                 <div className="about-img">
@@ -26,10 +27,11 @@ function AboutUs(){
                 <h2>Nuestros valores</h2>
                 <div className="values-grid">
                     <div className="value-card">
-                        <h3>Calidad</h3>
+                        <h3>Innovación</h3>
                         <p>
-                            Seleccionamos cuidadosamente cada producto para asegurar
-                            su durabilidad y buen rendimiento.
+                            Apostamos por la innovación en cada uno de nuestros productos,
+                            buscando siempre ofrecer soluciones modernas,
+                            eficientes y funcionales.
                         </p>
                     </div>
                     <div className="value-card">
