@@ -246,7 +246,6 @@ function EditPanel({ product, onReloadProduct }) {
     const [optionInput, setOptionInput] = useState("")
     const [specifications, setSpecifications] = useState({})
     const [allImagesErrased, setAllImagesErrased] = useState(false)
-    const [removedOptions, setRemovedOptions] = useState([])
     const originalProduct = useRef(null)
     const [error, setError] = useState(null)
     const originalSpecs = useRef(null)
@@ -307,7 +306,6 @@ function EditPanel({ product, onReloadProduct }) {
             .map(img => img.public_id)
         const originalOrder = (original.images || []).map(img => img.public_id)
         if (JSON.stringify(currentOrder) !== JSON.stringify(originalOrder)) return true
-        if (removedOptions.length > 0) return true
         return false
     }
     const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b)
@@ -362,6 +360,7 @@ function EditPanel({ product, onReloadProduct }) {
             formData.append("price", productCopy.price)
         if (variants.length === 0) {
             formData.append("stock", stock)
+            formData.append("price", productCopy.price)
         } else {
             const payload = variants.map(v => ({
                 option: v.option,
@@ -374,9 +373,6 @@ function EditPanel({ product, onReloadProduct }) {
         if (!isEqual(normalizedSpecs, product.specifications)) {
             formData.append("specifications", JSON.stringify(normalizedSpecs))
         }
-        if (removedOptions.length > 0) {
-            formData.append("remove_options", JSON.stringify(removedOptions))
-        }
         return formData
     }
     const handleUpdate = async () => {
@@ -386,6 +382,13 @@ function EditPanel({ product, onReloadProduct }) {
             if (hasEmptyJson(specifications)) {
                 setError("No puedes enviar objetos vacíos en specifications")
                 setLoading(false)
+                return
+            }
+            const invalidVariant = variants.some(
+                v => !v.option.trim()
+            )
+            if (invalidVariant) {
+                setError("Todas las opciones deben tener un nombre")
                 return
             }
             const formData = buildFullPayload()
@@ -442,13 +445,13 @@ function EditPanel({ product, onReloadProduct }) {
     const removeOption = (index) => {
         setVariants(prev => {
             const removed = prev[index]
-            setRemovedOptions(r => [...r, removed.option])
             const updated = prev.filter((_, i) => i !== index)
             if (updated.length === 0) {
                 setProductCopy(p => ({
                     ...p,
-                    price: removed?.price || ""
+                    price: removed?.price || 0
                 }))
+                setStock(String(removed?.stock || 0))
             }
             return updated
         })
@@ -498,7 +501,8 @@ function EditPanel({ product, onReloadProduct }) {
         const mapped = files.map(file => ({
             file,
             url: URL.createObjectURL(file),
-            isNew: true
+            isNew: true,
+            tempId: crypto.randomUUID()
         }))
         setImagesList(prev => [...prev, ...mapped])
     }
@@ -575,74 +579,98 @@ function EditPanel({ product, onReloadProduct }) {
                         />
                     )}
                     <div className="options-container">
-                        <strong>No puedes ingresar opciones repetidas:</strong>
-                        <div className="options-list">
-                            {variants.map((v, i) => (
-                                <div key={i} className="option-item">
-                                    <input
-                                        type="text"
-                                        value={v.option}
-                                        onChange={(e) => handleOptionChange(i, e.target.value)}
-                                    />
-                                    <button onClick={() => removeOption(i)}>X</button>
-                                </div>
-                            ))}
-                            <div className="aggregate-option">
+                        <strong>Variantes:</strong>
+                        {variants.map((v, i) => (
+                            <div key={i} className="variant-row">
                                 <input
                                     type="text"
-                                    placeholder="Añadir opción"
-                                    value={optionInput}
-                                    onChange={(e) => setOptionInput(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            e.preventDefault()
-                                            addVariant()
-                                        }
+                                    placeholder="Nombre"
+                                    value={v.option}
+                                    onChange={(e) =>
+                                        handleOptionChange(i, e.target.value)
+                                    }
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Stock"
+                                    value={v.stock}
+                                    onChange={(e) => {
+                                        const value = e.target.value
+                                        setVariants(prev => {
+                                            const copy = [...prev]
+                                            copy[i] = {
+                                                ...copy[i],
+                                                stock: value
+                                            }
+                                            return copy
+                                        })
                                     }}
                                 />
-                                <button onClick={addVariant}>+</button>
+                                <input
+                                    type="number"
+                                    placeholder="Precio"
+                                    value={v.price}
+                                    onChange={(e) => {
+                                        const value = e.target.value
+                                        setVariants(prev => {
+                                            const copy = [...prev]
+                                            copy[i] = {
+                                                ...copy[i],
+                                                price: value
+                                            }
+                                            return copy
+                                        })
+                                    }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => removeOption(i)}
+                                >
+                                    X
+                                </button>
                             </div>
+                        ))}
+                        <div className="aggregate-option">
+                            <input
+                                type="text"
+                                placeholder="Nueva variante"
+                                value={optionInput}
+                                onChange={(e) =>
+                                    setOptionInput(e.target.value)
+                                }
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        e.preventDefault()
+                                        addVariant()
+                                    }
+                                }}
+                            />
+                            <button onClick={addVariant}>
+                                +
+                            </button>
                         </div>
                     </div>
-                    {variants.length === 0 ? (
-                        <input
-                            type="number"
-                            value={stock}
-                            onChange={(e) => setStock(e.target.value)}
-                            placeholder="Stock"
-                        />
-                    ) : (
-                        <div className="stock-by-option">
-                            {variants.map((v, i) => (
-                                <div key={i} className="stock-option-item">
-                                    <span>{v.option}</span>
-                                    <input
-                                        type="number"
-                                        value={v.stock}
-                                        onChange={(e) => {
-                                            const value = e.target.value
-                                            setVariants(prev => {
-                                                const copy = [...prev]
-                                                copy[i] = { ...copy[i], stock: value }
-                                                return copy
-                                            })
-                                        }}
-                                    />
-                                    <input
-                                        type="number"
-                                        value={v.price}
-                                        onChange={(e) => {
-                                            const value = e.target.value
-                                            setVariants(prev => {
-                                                const copy = [...prev]
-                                                copy[i] = { ...copy[i], price: value }
-                                                return copy
-                                            })
-                                        }}
-                                    />
-                                </div>
-                            ))}
-                        </div>
+                    {variants.length === 0 && (
+                        <>
+                            <input
+                                className="create-product-price"
+                                type="number"
+                                placeholder="Precio"
+                                value={productCopy.price}
+                                onChange={(e) =>
+                                    setProductCopy(prev => ({
+                                        ...prev,
+                                        price: Number(e.target.value)
+                                    }))
+                                }
+                            />
+                            <input
+                                type="number"
+                                value={stock}
+                                onChange={(e) => setStock(e.target.value)}
+                                placeholder="Stock"
+                            />
+                        </>
                     )}
                 </div>
             </div>
