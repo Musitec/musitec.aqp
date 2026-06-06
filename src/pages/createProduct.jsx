@@ -415,11 +415,10 @@ function CreateProduct(){
                 value={description}
                 onChange={(e)=>setDescription(e.target.value)}
             />
-            <div className="specifications-editor">
-                <h3>Especificaciones:</h3>
-                <textarea
-                    className="product-specifications"
-                    placeholder={`.Marca: Arduino
+            <h3>Especificaciones:</h3>
+            <textarea
+                className="product-specifications"
+                placeholder={`.Marca: Arduino
 .Modelo: Uno R3
 .Microcontrolador: ATmega328P
 .Especificaciones: (
@@ -429,10 +428,9 @@ function CreateProduct(){
 .Memoria Flash: 32KB
 )
 .Conexión: USB Tipo B`}
-                    value={specifications}
-                    onChange={(e)=>setSpecifications(e.target.value)}
-                    />
-            </div>
+                value={specifications}
+                onChange={(e)=>setSpecifications(e.target.value)}
+            />
             {error&&<p className="create-error">{error}.</p>}
             <div className="create-button">
                 <button 
