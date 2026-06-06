@@ -62,100 +62,6 @@ function ProductImage({
     )
 }
 
-function updateTree(tree, path, newValue) {
-    if (path.length === 0) return newValue
-
-    const [key, ...rest] = path
-
-    return {
-        ...tree,
-        [key]: {
-            ...tree[key],
-            value: updateTree(tree[key]?.value || {}, rest, newValue)
-        }
-    }
-}
-
-function SpecificationsEditor({ specs, setSpecs, path=[], setError }) {
-    const [keyInput,setKeyInput]=useState("")
-    const [valueInput,setValueInput]=useState("")
-    const [type,setType]=useState("string")
-    const addSpec=()=>{
-        const key=keyInput.trim()
-        if(!key) return
-        const node = path.reduce((acc,k)=>acc?.[k]?.value, specs)
-        if(node && node[key]){
-            setError("Clave duplicada")
-            return
-        }
-        const newNode = {
-            ...(node || {}),
-            [key]: type==="string"
-                ? {type:"string",value:valueInput.trim()}
-                : {type:"json",value:{}}
-        }
-        setSpecs(prev=>updateTree(prev,path,newNode))
-        setKeyInput("")
-        setValueInput("")
-    }
-    const node = path.reduce((acc,k)=>acc?.[k]?.value, specs || {}) || {}
-    return(
-        <div className="spec-editor">
-            {Object.entries(node || {}).map(([key,data])=>{
-                const currentPath=[...path,key]
-                return(
-                    <div key={currentPath.join(".")} className="spec-block">
-                        <strong>{key}:</strong>
-                        {data.type==="string" && (
-                            <span>{data.value}</span>
-                        )}
-                        {data.type==="json" && (
-                            <SpecificationsEditor
-                                specs={specs}
-                                setSpecs={setSpecs}
-                                path={currentPath}
-                                setError={setError}
-                            />
-                        )}
-                        <button
-                        onClick={()=>{
-                            const copy={...node}
-                            delete copy[key]
-                            setSpecs(prev=>updateTree(prev,path,copy))
-                        }}>
-                        X
-                        </button>
-                    </div>
-                )
-            })}
-            <div className="spec-add">
-                <select
-                value={type}
-                onChange={e=>setType(e.target.value)}
-                >
-                    <option value="string">Texto</option>
-                    <option value="json">Objeto</option>
-                </select>
-                <input
-                    placeholder="Nombre"
-                    value={keyInput}
-                    onChange={e=>setKeyInput(e.target.value)}
-                />
-                {type==="string" && (
-                    <input
-                        placeholder="Valor"
-                        value={valueInput}
-                        onChange={e=>setValueInput(e.target.value)}
-                    />
-                )}
-                <button onClick={addSpec}>
-                    +
-                </button>
-            </div>
-        </div>
-    )
-}
-
 function CreateProduct(){
     const inputRef=useRef(null)
     const [images, setImages]=useState([])
@@ -167,7 +73,7 @@ function CreateProduct(){
     const [stock, setStock] = useState("")
     const [options, setOptions] = useState([])
     const [variantsData, setVariantsData] = useState({})
-    const [specifications, setSpecifications] = useState({})
+    const [specifications, setSpecifications] = useState("")
     const [optionInput, setOptionInput] = useState("")
     const [error, setError]=useState(null)
     const [loading, setLoading]=useState(false)
@@ -195,6 +101,46 @@ function CreateProduct(){
     }
     const handleDragOver = (e) => {
         e.preventDefault()
+    }
+    const parseSpecifications = (text) => {
+        const lines = text
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line => line !== "")
+        let index = 0
+        const parseBlock = () => {
+            const result = {}
+            while (index < lines.length) {
+                const line = lines[index]
+                if (line === ")") {
+                    index++
+                    break
+                }
+                if (!line.startsWith(".")) {
+                    throw new Error(`Formato inválido: ${line}`)
+                }
+                const content = line.slice(1)
+                const separator = content.indexOf(":")
+                if (separator === -1) {
+                    throw new Error(`Falta ':' en ${line}`)
+                }
+                const key = content.slice(0, separator).trim()
+                const value = content.slice(separator + 1).trim()
+                if (!key) {
+                    throw new Error(`Clave vacía en ${line}`)
+                }
+
+                if (value === "(") {
+                    index++
+                    result[key] = parseBlock()
+                } else {
+                    result[key] = value
+                    index++
+                }
+            }
+            return result
+        }
+        return parseBlock()
     }
     const handleChange = (e) => {
         const files = Array.from(e.target.files)
@@ -267,32 +213,6 @@ function CreateProduct(){
         })
         setOptionInput("")
     }
-    const normalizeSpecs = (specs = {}) => {
-        const result = {}
-        for (const key in specs) {
-            const item = specs[key]
-            if (item.type === "string") {
-                result[key] = item.value
-            } else {
-                result[key] = normalizeSpecs(item.value || {})
-            }
-        }
-        return result
-    }
-    const hasEmptyJson = (specs) => {
-        for (const key in specs) {
-            const item = specs[key]
-            if (item.type === "json") {
-                if (!item.value || Object.keys(item.value).length === 0) {
-                    return true
-                }
-                if (hasEmptyJson(item.value)) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
     const sendProduct=async()=>{
         setLoading(true)
         setError(null)
@@ -312,11 +232,20 @@ function CreateProduct(){
                 }))
                 formData.append("variants", JSON.stringify(variants))
             }
-            const normalizedSpecs = normalizeSpecs(specifications)
-            formData.append(
-                "specifications",
-                JSON.stringify(normalizedSpecs)
-            )
+            let parsedSpecs = {}
+            if(specifications.trim()){
+                try{
+                    parsedSpecs = parseSpecifications(specifications)
+                }catch(err){
+                    setError(err.message)
+                    setLoading(false)
+                    return
+                }
+                formData.append(
+                    "specifications",
+                    JSON.stringify(parsedSpecs)
+                )
+            }
             images.forEach(img => {
                 formData.append("files", img.file)
             })
@@ -336,7 +265,7 @@ function CreateProduct(){
             setPrice("")
             setStock("")
             setOptions([])
-            setSpecifications({})
+            setSpecifications("")
             setVariantsData({})
             alert("Producto creado correctamente")
         } catch (error) {
@@ -488,12 +417,21 @@ function CreateProduct(){
             />
             <div className="specifications-container">
                 <h3>Especificaciones:</h3>
-                <SpecificationsEditor
-                    specs={specifications}
-                    setSpecs={setSpecifications}
-                    path={[]}
-                    setError={setError}
-                />
+                <textarea
+                    className="product-description"
+                    placeholder={`.Marca: Arduino
+.Modelo: Uno R3
+.Microcontrolador: ATmega328P
+.Especificaciones: (
+.Voltaje de operación: 5V
+.Entradas analógicas: 6
+.Pines digitales: 14
+.Memoria Flash: 32KB
+)
+.Conexión: USB Tipo B`}
+                    value={specifications}
+                    onChange={(e)=>setSpecifications(e.target.value)}
+                    />
             </div>
             {error&&<p className="create-error">{error}.</p>}
             <div className="create-button">
@@ -501,7 +439,6 @@ function CreateProduct(){
                     disabled={
                         images.length === 0 ||
                         !name.trim() ||
-                        !description.trim() ||
                         !catalog.trim() ||
                         (
                             options.length === 0
@@ -512,8 +449,6 @@ function CreateProduct(){
                                     variantsData[opt].price === ""
                                 )
                         ) ||
-                        Object.keys(specifications || {}).length === 0 ||
-                        hasEmptyJson(specifications) ||
                         loading
                     }
                     onClick={sendProduct}
