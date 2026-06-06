@@ -415,10 +415,10 @@ function CreateProduct(){
                 value={description}
                 onChange={(e)=>setDescription(e.target.value)}
             />
-            <div className="specifications-container">
+            <div className="specifications-editor">
                 <h3>Especificaciones:</h3>
                 <textarea
-                    className="product-description"
+                    className="product-specifications"
                     placeholder={`.Marca: Arduino
 .Modelo: Uno R3
 .Microcontrolador: ATmega328P
