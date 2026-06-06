@@ -193,12 +193,21 @@ function ProductSelected({ product, onBuyClick, isStaff, session }) {
                 </div>
             </div>
             <div className="product-selected-data">
-                <h3>Descripción:</h3>
-                <p>{product.description}</p>
-                <h3>Especificaciones:</h3>
-                <Especifies specifies={product.specifications} />
+                {product.description?.trim() && (
+                    <>
+                        <h3>Descripción:</h3>
+                        <p>{product.description}</p>
+                    </>
+                )}
+                {product.specifications &&
+                    Object.keys(product.specifications).length > 0 && (
+                        <>
+                            <h3>Especificaciones:</h3>
+                            <Especifies specifies={product.specifications} />
+                        </>
+                    )
+                }
             </div>
-
         </div>
     )
 }
