@@ -137,6 +137,23 @@ function EditPanel({ product, onReloadProduct }) {
     const originalProduct = useRef(null)
     const [error, setError] = useState(null)
     const originalSpecs = useRef(null)
+    const specsToText = (obj, level = 0) => {
+        let result = ""
+        for (const [key, value] of Object.entries(obj || {})) {
+            if (
+                typeof value === "object" &&
+                value !== null &&
+                !Array.isArray(value)
+            ) {
+                result += `.${key}: (\n`
+                result += specsToText(value, level + 1)
+                result += `)\n`
+            } else {
+                result += `.${key}: ${value}\n`
+            }
+        }
+        return result
+    }
     useEffect(() => {
         if (product) {
             originalProduct.current = JSON.parse(JSON.stringify(product))
@@ -162,23 +179,6 @@ function EditPanel({ product, onReloadProduct }) {
                 <p>Cargando editor...</p>
             </div>
         )
-    }
-    const specsToText = (obj, level = 0) => {
-        let result = ""
-        for (const [key, value] of Object.entries(obj || {})) {
-            if (
-                typeof value === "object" &&
-                value !== null &&
-                !Array.isArray(value)
-            ) {
-                result += `.${key}: (\n`
-                result += specsToText(value, level + 1)
-                result += `)\n`
-            } else {
-                result += `.${key}: ${value}\n`
-            }
-        }
-        return result
     }
     const parseSpecifications = (text) => {
         const lines = text

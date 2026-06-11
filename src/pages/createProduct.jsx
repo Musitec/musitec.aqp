@@ -281,7 +281,6 @@ function CreateProduct(){
         const getCatalogs=async()=>{
             try {
                 const res=await api.get("product-control/product/catalogs")
-                console.log(res.data.catalogs)
                 setCatalogs(res.data.catalogs || [])
             } catch (err) {
                 setError(getErrorMessage(err))
