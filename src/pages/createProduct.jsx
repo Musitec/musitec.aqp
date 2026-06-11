@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import api from "../services/api"
 import getErrorMessage from "../components/getError"
 import "./createProduct.css"
@@ -74,6 +74,8 @@ function CreateProduct(){
     const [options, setOptions] = useState([])
     const [variantsData, setVariantsData] = useState({})
     const [specifications, setSpecifications] = useState("")
+    const [catalogs, setCatalogs]=useState(null)
+    const [newCatalog, setNewCatalog] = useState(false)
     const [optionInput, setOptionInput] = useState("")
     const [error, setError]=useState(null)
     const [loading, setLoading]=useState(false)
@@ -274,6 +276,19 @@ function CreateProduct(){
             setLoading(false)
         }
     }
+    useEffect(()=>{
+        const getCatalogs=async()=>{
+            try {
+                const res=await api.get("product-control/product/catalogs")
+                setCatalogs(response.data.catalogs || [])
+            } catch (err) {
+                setError(getErrorMessage(err))
+            }finally{
+                setError("")
+            }
+        }
+        getCatalogs()
+    },[])
     return(
         <div className="create-product-cont">
             <h1>Crear producto</h1>
@@ -298,13 +313,55 @@ function CreateProduct(){
                         value={name}
                         onChange={(e)=>setName(e.target.value)}
                     />
-                    <input
-                        type="text"
-                        placeholder="Catálogo"
-                        style={{fontSize:"25px", alignSelf: "flex-start"}}
-                        value={catalog}
-                        onChange={(e)=>setCatalog(e.target.value)}
-                    />
+                    <div className="catalog-container">
+                        {!newCatalog ? (
+                            <>
+                                <select
+                                    value={catalog}
+                                    onChange={(e) => setCatalog(e.target.value)}
+                                >
+                                    <option value="">
+                                        Seleccionar catálogo
+                                    </option>
+                                    {catalogs.map((cat, index) => (
+                                        <option
+                                            key={index}
+                                            value={cat}
+                                        >
+                                            {cat}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setNewCatalog(true)
+                                        setCatalog("")
+                                    }}
+                                >
+                                    Nuevo catálogo
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <input
+                                    type="text"
+                                    placeholder="Nuevo catálogo"
+                                    value={catalog}
+                                    onChange={(e) => setCatalog(e.target.value)}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setNewCatalog(false)
+                                        setCatalog("")
+                                    }}
+                                >
+                                    Cancelar
+                                </button>
+                            </>
+                        )}
+                    </div>
                     {options.length === 0 && (
                         <input
                             className="create-product-price"
