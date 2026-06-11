@@ -316,6 +316,27 @@ function EditPanel({ product, onReloadProduct }) {
         }
         return formData
     }
+    const hasEmptyJson = (text) => {
+        try {
+            const parsed = parseSpecifications(text)
+            const check = (obj) => {
+                if (
+                    typeof obj === "object" &&
+                    obj !== null &&
+                    !Array.isArray(obj)
+                ) {
+                    if (Object.keys(obj).length === 0) {
+                        return true
+                    }
+                    return Object.values(obj).some(check)
+                }
+                return false
+            }
+            return check(parsed)
+        } catch {
+            return false
+        }
+    }
     const handleUpdate = async () => {
         setLoading(true)
         try {
@@ -491,20 +512,6 @@ function EditPanel({ product, onReloadProduct }) {
                             }))
                         }
                     />
-                    {variants.length === 0 && (
-                        <input
-                            className="create-product-price"
-                            type="number"
-                            placeholder="Precio"
-                            value={productCopy.price}
-                            onChange={(e) =>
-                                setProductCopy(prev => ({
-                                    ...prev,
-                                    price: Number(e.target.value)
-                                }))
-                            }
-                        />
-                    )}
                     <div className="options-container">
                         <strong>Variantes:</strong>
                         {variants.map((v, i) => (
@@ -612,11 +619,10 @@ function EditPanel({ product, onReloadProduct }) {
                     }))
                 }
             />
-            <div className="specifications-container">
-                <h3>Especificaciones:</h3>
-                <textarea
-                    className="product-specifications"
-                    placeholder={`.Marca: Arduino
+            <h3>Especificaciones:</h3>
+            <textarea
+                className="product-specifications"
+                placeholder={`.Marca: Arduino
 .Modelo: Uno R3
 .Microcontrolador: ATmega328P
 .Especificaciones: (
@@ -626,10 +632,9 @@ function EditPanel({ product, onReloadProduct }) {
 .Memoria Flash: 32KB
 )
 .Conexión: USB Tipo B`}
-                    value={specifications}
-                    onChange={(e)=>setSpecifications(e.target.value)}
-                />
-            </div>
+                value={specifications}
+                onChange={(e)=>setSpecifications(e.target.value)}
+            />
             {error && (
                 <p className="create-error">{error}</p>
             )}
