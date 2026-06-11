@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom"
 import api from "../services/api"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import getErrorMessage from "../components/getError"
 import ShowOptions from "../components/showOptions"
 import ProductModal from "../components/productModal"
@@ -113,8 +113,24 @@ function ShowInteractions({active,onChangeActive,blocked,onChangeBlocked,stock,o
     const stockLabels=["Todos","Bajo stock","Sin stock"]
     const orderValues=["popular","oldest","newest","stock_desc","stock_asc","price_desc","price_asc"]
     const orderLabels=["Popularidad","Mayor a menor edad","Menor a mayor edad","Mayor a menor stock","Mayor a menor precio","Menor a mayor precio"]
+    const filtersRef=useRef(null)
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if(
+                filtersRef.current &&
+                !filtersRef.current.contains(e.target)
+            ){
+                setShowFilters(false)
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [])
     return(
-        <div className="interactions-flex">
+        <>
+        <div className="filters">
             <ShowOptions
                 title={"Activados"}
                 labels={activeLabels}
@@ -148,6 +164,10 @@ function ShowInteractions({active,onChangeActive,blocked,onChangeBlocked,stock,o
                 text={text}
             />
         </div>
+        <div className="mobile-filters-container" ref={filtersRef}>
+
+        </div>
+        </>
     )
 }
 function ShowDashboardProducts(){
