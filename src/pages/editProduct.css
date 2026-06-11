@@ -21,7 +21,6 @@
     gap: 8px;
     flex-wrap: wrap;
 }
-
 .change-log-image {
     width: 60px;
     height: 60px;
@@ -29,19 +28,17 @@
     border-radius: 6px;
     border: 1px solid #ccc;
 }
-
 .change-values {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    font-size: 12px;
 }
-
 .old-value, .new-value {
     display: flex;
     gap: 5px;
 }
-
 .arrow {
     font-weight: bold;
 }
