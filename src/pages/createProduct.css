@@ -303,6 +303,39 @@
     font-size: 30px;
     width: 30%;
 }
+.catalog-selector{
+    position:relative;
+    width:100%;
+}
+.catalog-input-container{
+    display:flex;
+    gap:5px;
+}
+.catalog-input-container input{
+    flex:1;
+}
+.catalog-dropdown{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:white;
+    border:1px solid #ccc;
+    max-height:200px;
+    overflow-y:auto;
+    z-index:100;
+}
+.catalog-option{
+    width:100%;
+    text-align:left;
+    padding:10px;
+    border:none;
+    background:white;
+    cursor:pointer;
+}
+.catalog-option:hover{
+    background:#f0f0f0;
+}
 @media (max-width:780px){
     .create-product-flex{
         flex-direction: column;

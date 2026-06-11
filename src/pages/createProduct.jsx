@@ -76,6 +76,7 @@ function CreateProduct(){
     const [specifications, setSpecifications] = useState("")
     const [catalogs, setCatalogs]=useState([])
     const [newCatalog, setNewCatalog] = useState(false)
+    const [showCatalogs, setShowCatalogs] = useState(false)
     const [optionInput, setOptionInput] = useState("")
     const [error, setError]=useState(null)
     const [loading, setLoading]=useState(false)
@@ -314,52 +315,50 @@ function CreateProduct(){
                         value={name}
                         onChange={(e)=>setName(e.target.value)}
                     />
-                    <div className="catalog-container">
-                        {catalogs && catalogs.length > 0 && !newCatalog ? (
-                            <>
-                                <select
-                                    value={catalog}
-                                    onChange={(e) => setCatalog(e.target.value)}
-                                >
-                                    <option value="">
-                                        Seleccionar catálogo
-                                    </option>
-                                    {catalogs.map((cat, index) => (
-                                        <option key={index} value={cat}>
-                                            {cat}
-                                        </option>
-                                    ))}
-                                </select>
+                    <div className="catalog-selector">
+                        <div className="catalog-input-container">
+                            <input
+                                type="text"
+                                placeholder="Catálogo"
+                                value={catalog}
+                                onChange={(e) => setCatalog(e.target.value)}
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() => setShowCatalogs(prev => !prev)}
+                            >
+                                ▼
+                            </button>
+                        </div>
+
+                        {showCatalogs && (
+                            <div className="catalog-dropdown">
                                 <button
                                     type="button"
+                                    className="catalog-option"
                                     onClick={() => {
-                                        setNewCatalog(true)
                                         setCatalog("")
+                                        setShowCatalogs(false)
                                     }}
                                 >
-                                    Nuevo catálogo
+                                    + Nuevo catálogo
                                 </button>
-                            </>
-                        ) : (
-                            <>
-                                <input
-                                    type="text"
-                                    placeholder="Nuevo catálogo"
-                                    value={catalog}
-                                    onChange={(e) => setCatalog(e.target.value)}
-                                />
-                                {catalogs && catalogs.length > 0 && (
+
+                                {catalogs?.map((cat, index) => (
                                     <button
+                                        key={index}
                                         type="button"
+                                        className="catalog-option"
                                         onClick={() => {
-                                            setNewCatalog(false)
-                                            setCatalog("")
+                                            setCatalog(cat)
+                                            setShowCatalogs(false)
                                         }}
                                     >
-                                        Cancelar
+                                        {cat}
                                     </button>
-                                )}
-                            </>
+                                ))}
+                            </div>
                         )}
                     </div>
                     {options.length === 0 && (
