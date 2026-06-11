@@ -323,8 +323,8 @@ function CreateProduct(){
                                 value={catalog}
                                 onChange={(e) => setCatalog(e.target.value)}
                             />
-
                             <button
+                                className="button-catalog"
                                 type="button"
                                 onClick={() => setShowCatalogs(prev => !prev)}
                             >

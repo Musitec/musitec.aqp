@@ -336,6 +336,19 @@
 .catalog-option:hover{
     background:#f0f0f0;
 }
+.button-catalog{
+    background: none;
+    color: blue;
+    padding: 5px;
+    border: 2px solid blue;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.button-catalog:hover{
+    color: white;
+    background: blue;
+}
 @media (max-width:780px){
     .create-product-flex{
         flex-direction: column;
