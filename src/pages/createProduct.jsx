@@ -74,7 +74,7 @@ function CreateProduct(){
     const [options, setOptions] = useState([])
     const [variantsData, setVariantsData] = useState({})
     const [specifications, setSpecifications] = useState("")
-    const [catalogs, setCatalogs]=useState(null)
+    const [catalogs, setCatalogs]=useState([])
     const [newCatalog, setNewCatalog] = useState(false)
     const [optionInput, setOptionInput] = useState("")
     const [error, setError]=useState(null)
@@ -315,7 +315,7 @@ function CreateProduct(){
                         onChange={(e)=>setName(e.target.value)}
                     />
                     <div className="catalog-container">
-                        {!newCatalog ? (
+                        {catalogs && catalogs.length > 0 && !newCatalog ? (
                             <>
                                 <select
                                     value={catalog}
@@ -325,10 +325,7 @@ function CreateProduct(){
                                         Seleccionar catálogo
                                     </option>
                                     {catalogs.map((cat, index) => (
-                                        <option
-                                            key={index}
-                                            value={cat}
-                                        >
+                                        <option key={index} value={cat}>
                                             {cat}
                                         </option>
                                     ))}
@@ -351,15 +348,17 @@ function CreateProduct(){
                                     value={catalog}
                                     onChange={(e) => setCatalog(e.target.value)}
                                 />
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setNewCatalog(false)
-                                        setCatalog("")
-                                    }}
-                                >
-                                    Cancelar
-                                </button>
+                                {catalogs && catalogs.length > 0 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setNewCatalog(false)
+                                            setCatalog("")
+                                        }}
+                                    >
+                                        Cancelar
+                                    </button>
+                                )}
                             </>
                         )}
                     </div>
