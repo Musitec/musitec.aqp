@@ -121,7 +121,7 @@ function ProductImage({
     )
 }
 
-function EditPanel({ product, onReloadProduct }) {
+function EditPanel({ product, catalogs, onReloadProduct }) {
     const [productCopy, setProductCopy] = useState(null)
     const [imagesList, setImagesList] = useState([])
     const [removedImages, setRemovedImages] = useState([])
@@ -134,9 +134,10 @@ function EditPanel({ product, onReloadProduct }) {
     const [optionInput, setOptionInput] = useState("")
     const [specifications, setSpecifications] = useState("")
     const [allImagesErrased, setAllImagesErrased] = useState(false)
-    const originalProduct = useRef(null)
     const [error, setError] = useState(null)
+    const [showCatalogs, setShowCatalogs] = useState(false)
     const originalSpecs = useRef(null)
+    const originalProduct = useRef(null)
     const specsToText = (obj, level = 0) => {
         let result = ""
         for (const [key, value] of Object.entries(obj || {})) {
@@ -500,18 +501,61 @@ function EditPanel({ product, onReloadProduct }) {
                         }
                         placeholder="Nombre del producto"
                     />
-                    <input
-                        type="text"
-                        placeholder="Catálogo"
-                        style={{fontSize:"25px", alignSelf: "flex-start"}}
-                        value={productCopy.catalog}
-                        onChange={(e)=>
-                            setProductCopy(prev=>({
-                                ...prev,
-                                catalog: e.target.value
-                            }))
-                        }
-                    />
+                    <div className="catalog-selector">
+                        <div className="catalog-input-container">
+                            <input
+                                type="text"
+                                placeholder="Catálogo"
+                                value={productCopy.catalog || ""}
+                                onChange={(e) =>
+                                    setProductCopy(prev => ({
+                                        ...prev,
+                                        catalog: e.target.value
+                                    }))
+                                }
+                            />
+                            <button
+                                className="button-catalog"
+                                type="button"
+                                onClick={() => setShowCatalogs(prev => !prev)}
+                            >
+                                ▼
+                            </button>
+                        </div>
+                        {showCatalogs && (
+                            <div className="catalog-dropdown">
+                                <button
+                                    type="button"
+                                    className="catalog-option"
+                                    onClick={() => {
+                                        setProductCopy(prev => ({
+                                            ...prev,
+                                            catalog: ""
+                                        }))
+                                        setShowCatalogs(false)
+                                    }}
+                                >
+                                    + Nuevo catálogo
+                                </button>
+                                {catalogs?.map((cat, index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        className="catalog-option"
+                                        onClick={() => {
+                                            setProductCopy(prev => ({
+                                                ...prev,
+                                                catalog: cat
+                                            }))
+                                            setShowCatalogs(false)
+                                        }}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     <div className="options-container">
                         <strong>Variantes:</strong>
                         {variants.map((v, i) => (
@@ -655,6 +699,7 @@ function EditProduct(){
     const [product,setProduct]=useState(null)
     const [loading,setLoading]=useState(true)
     const [error,setError]=useState(null)
+    const [catalogs, setCatalogs]=useState([])
     const getProduct=async()=>{
         setLoading(true)
         setError(null)
@@ -667,11 +712,23 @@ function EditProduct(){
             setLoading(false) 
         } 
     }
+    const getCatalogs=async()=>{
+        try {
+            const res=await api.get("product-control/product/catalogs")
+            setCatalogs(res.data.catalogs || [])
+        } catch (err) {
+            setError(getErrorMessage(err))
+        }finally{
+            setError("")
+        }
+    }
     useEffect(()=>{
+        getCatalogs()
         getProduct()
     },[id])
     const onReloadProduct=async()=>{
         getProduct()
+        getCatalogs()
         window.scrollTo({
             top: 0,
             left: 0,
@@ -694,7 +751,7 @@ function EditProduct(){
     }
     return(
         <>
-            <EditPanel product={product} onReloadProduct={onReloadProduct}/>
+            <EditPanel product={product} catalogs={catalogs} onReloadProduct={onReloadProduct}/>
             <ChangeLog logs={product.changeLog} />
         </>
     )
