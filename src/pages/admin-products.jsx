@@ -165,7 +165,13 @@ function ShowInteractions({active,onChangeActive,blocked,onChangeBlocked,stock,o
             />
         </div>
         <div className="mobile-filters-container" ref={filtersRef}>
-
+            <button
+                    className="mobile-filters-button"
+                    onClick={() => setShowFilters(prev => !prev)}
+            >
+                Buscar por:
+            </button>
+            <div className={`mobile-filters ${showFilters ? "open" : ""}`}></div>
         </div>
         </>
     )
