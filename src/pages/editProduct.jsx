@@ -120,119 +120,7 @@ function ProductImage({
         </div>
     )
 }
-function transformToTree(obj) {
-    const result = {}
-    for (const key in obj) {
-        if (typeof obj[key] === "object" && obj[key] !== null) {
-            result[key] = {
-                type: "json",
-                value: transformToTree(obj[key])
-            }
-        } else {
-            result[key] = {
-                type: "string",
-                value: obj[key]
-            }
-        }
-    }
-    return result
-}
-function updateTree(tree, path, newValue) {
-    if (path.length === 0) return newValue
-    const [key, ...rest] = path
-    return {
-        ...tree,
-        [key]: {
-            ...tree[key],
-            value: updateTree(tree[key]?.value || {}, rest, newValue)
-        }
-    }
-}
-function SpecificationsEditor({ specs, setSpecs, path = [], setError }) {
-    const [keyInput, setKeyInput] = useState("")
-    const [valueInput, setValueInput] = useState("")
-    const [type, setType] = useState("string")
-    const getNode = () => {
-        return path.reduce((acc, k) => acc?.[k]?.value, specs) || specs
-    }
-    const addSpec = () => {
-        const key = keyInput.trim()
-        if (!key) return
-        const node = getNode()
-        if (node[key]) {
-            setError("Clave duplicada")
-            return
-        }
-        const newNode = {
-            ...node,
-            [key]: type === "string"
-                ? { type: "string", value: valueInput.trim() }
-                : { type: "json", value: {} }
-        }
-        setSpecs(prev => updateTree(prev, path, newNode))
-        setKeyInput("")
-        setValueInput("")
-    }
-    const removeKey = (key) => {
-        const node = getNode()
-        const copy = { ...node }
-        delete copy[key]
 
-        setSpecs(prev => updateTree(prev, path, copy))
-    }
-    const node = getNode()
-    if (!specs) {
-        return null
-    }
-    return (
-        <div className="spec-editor">
-            {Object.entries(node || {}).map(([key, data]) => {
-                const currentPath = [...path, key]
-                return (
-                    <div key={currentPath.join(".")} className="spec-block">
-                        <strong>{key}:</strong>
-                        {data.type === "string" && (
-                            <span>{data.value}</span>
-                        )}
-                        {data.type === "json" && (
-                            <div style={{ marginLeft: "20px" }}>
-                                <SpecificationsEditor
-                                    specs={specs}
-                                    setSpecs={setSpecs}
-                                    path={currentPath}
-                                    setError={setError}
-                                />
-                            </div>
-                        )}
-                        <button onClick={() => removeKey(key)}>X</button>
-                    </div>
-                )
-            })}
-            <div className="spec-add">
-                <select
-                    value={type}
-                    onChange={e => setType(e.target.value)}
-                >
-                    <option value="string">Texto</option>
-                    <option value="json">Objeto</option>
-                </select>
-                <input
-                    placeholder="Nombre"
-                    value={keyInput}
-                    onChange={e => setKeyInput(e.target.value)}
-                />
-                {type === "string" && (
-                    <input
-                        placeholder="Valor"
-                        value={valueInput}
-                        onChange={e => setValueInput(e.target.value)}
-                    />
-                )}
-                <button onClick={addSpec}>+</button>
-            </div>
-        </div>
-    )
-}
 function EditPanel({ product, onReloadProduct }) {
     const [productCopy, setProductCopy] = useState(null)
     const [imagesList, setImagesList] = useState([])
@@ -244,7 +132,7 @@ function EditPanel({ product, onReloadProduct }) {
     const [variantsData, setVariantsData] = useState({})
     const [stock, setStock] = useState("")
     const [optionInput, setOptionInput] = useState("")
-    const [specifications, setSpecifications] = useState({})
+    const [specifications, setSpecifications] = useState("")
     const [allImagesErrased, setAllImagesErrased] = useState(false)
     const originalProduct = useRef(null)
     const [error, setError] = useState(null)
@@ -264,8 +152,8 @@ function EditPanel({ product, onReloadProduct }) {
             } else {
                 setStock(String(copy.stock ?? ""))
             }
-            originalSpecs.current = JSON.parse(JSON.stringify(copy.specifications || {}))
-            setSpecifications(transformToTree(copy.specifications || {}))
+            originalSpecs.current = copy.specifications || {}
+            setSpecifications(specsToText(copy.specifications || {}))
         }
     }, [product])
     if (!productCopy) {
@@ -274,6 +162,59 @@ function EditPanel({ product, onReloadProduct }) {
                 <p>Cargando editor...</p>
             </div>
         )
+    }
+    const specsToText = (obj, level = 0) => {
+        let result = ""
+        for (const [key, value] of Object.entries(obj || {})) {
+            if (
+                typeof value === "object" &&
+                value !== null &&
+                !Array.isArray(value)
+            ) {
+                result += `.${key}: (\n`
+                result += specsToText(value, level + 1)
+                result += `)\n`
+            } else {
+                result += `.${key}: ${value}\n`
+            }
+        }
+        return result
+    }
+    const parseSpecifications = (text) => {
+        const lines = text
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line => line !== "")
+        let index = 0
+        const parseBlock = () => {
+            const result = {}
+            while (index < lines.length) {
+                const line = lines[index]
+                if (line === ")") {
+                    index++
+                    break
+                }
+                if (!line.startsWith(".")) {
+                    throw new Error(`Formato inválido: ${line}`)
+                }
+                const content = line.slice(1)
+                const separator = content.indexOf(":")
+                if (separator === -1) {
+                    throw new Error(`Falta ':' en ${line}`)
+                }
+                const key = content.slice(0, separator).trim()
+                const value = content.slice(separator + 1).trim()
+                if (value === "(") {
+                    index++
+                    result[key] = parseBlock()
+                } else {
+                    result[key] = value
+                    index++
+                }
+            }
+            return result
+        }
+        return parseBlock()
     }
     const hasChanges = () => {
         if (!productCopy || !originalProduct.current) return false
@@ -297,8 +238,17 @@ function EditPanel({ product, onReloadProduct }) {
             }))
             if (JSON.stringify(current) !== JSON.stringify(originalVariants)) return true
         }
-        const normalizedSpecs = normalizeSpecs(specifications)
-        if (JSON.stringify(normalizedSpecs) !== JSON.stringify(originalSpecs.current)) return true
+        let parsedSpecs = {}
+        try {
+            parsedSpecs = specifications.trim()
+                ? parseSpecifications(specifications)
+                : {}
+        } catch {
+            return true
+        }
+        if (JSON.stringify(parsedSpecs) !== JSON.stringify(originalSpecs.current)){
+            return true
+        }
         if (removedImages.length > 0) return true
         if (imagesList.some(img => img.isNew)) return true
         const currentOrder = imagesList
@@ -335,18 +285,6 @@ function EditPanel({ product, onReloadProduct }) {
         }
         return formData
     }
-    const normalizeSpecs = (specs) => {
-        const result = {}
-        for (const key in specs) {
-            const item = specs[key]
-            if (item.type === "string") {
-                result[key] = item.value
-            } else {
-                result[key] = normalizeSpecs(item.value||{})
-            }
-        }
-        return result
-    }
     const buildFullPayload = () => {
         const formData = buildImagesPayload()
         const original = originalProduct.current
@@ -369,9 +307,12 @@ function EditPanel({ product, onReloadProduct }) {
             }))
             formData.append("variants", JSON.stringify(payload))
         }
-        const normalizedSpecs = normalizeSpecs(specifications)
-        if (!isEqual(normalizedSpecs, product.specifications)) {
-            formData.append("specifications", JSON.stringify(normalizedSpecs))
+        const parsedSpecs = specifications.trim()? parseSpecifications(specifications):{}
+        if (!isEqual(parsedSpecs, product.specifications || {})) {
+            formData.append(
+                "specifications",
+                JSON.stringify(parsedSpecs)
+            )
         }
         return formData
     }
@@ -408,20 +349,6 @@ function EditPanel({ product, onReloadProduct }) {
         }finally{
             setLoading(false)
         }
-    }
-    const hasEmptyJson = (specs) => {
-        for (const key in specs) {
-            const item = specs[key]
-            if (item.type === "json") {
-                if (!item.value || Object.keys(item.value).length === 0) {
-                    return true
-                }
-                if (hasEmptyJson(item.value)) {
-                    return true
-                }
-            }
-        }
-        return false
     }
     const addVariant = () => {
         const value = optionInput.trim()
@@ -687,11 +614,20 @@ function EditPanel({ product, onReloadProduct }) {
             />
             <div className="specifications-container">
                 <h3>Especificaciones:</h3>
-                <SpecificationsEditor
-                    specs={specifications}
-                    setSpecs={setSpecifications}
-                    path={[]}
-                    setError={setError}
+                <textarea
+                    className="product-specifications"
+                    placeholder={`.Marca: Arduino
+.Modelo: Uno R3
+.Microcontrolador: ATmega328P
+.Especificaciones: (
+.Voltaje de operación: 5V
+.Entradas analógicas: 6
+.Pines digitales: 14
+.Memoria Flash: 32KB
+)
+.Conexión: USB Tipo B`}
+                    value={specifications}
+                    onChange={(e)=>setSpecifications(e.target.value)}
                 />
             </div>
             {error && (
