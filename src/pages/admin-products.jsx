@@ -113,6 +113,7 @@ function ShowInteractions({active,onChangeActive,blocked,onChangeBlocked,stock,o
     const stockLabels=["Todos","Bajo stock","Sin stock"]
     const orderValues=["popular","oldest","newest","stock_desc","stock_asc","price_desc","price_asc"]
     const orderLabels=["Popularidad","Mayor a menor edad","Menor a mayor edad","Mayor a menor stock","Mayor a menor precio","Menor a mayor precio"]
+    const [showFilters, setShowFilters] = useState(false)
     const filtersRef=useRef(null)
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -166,13 +167,46 @@ function ShowInteractions({active,onChangeActive,blocked,onChangeBlocked,stock,o
         </div>
         <div className="mobile-filters-container" ref={filtersRef}>
             <button
-                    className="mobile-filters-button"
-                    onClick={() => setShowFilters(prev => !prev)}
+                className="mobile-filters-button"
+                onClick={() => setShowFilters(prev => !prev)}
             >
                 Buscar por:
             </button>
-            <div className={`mobile-filters ${showFilters ? "open" : ""}`}></div>
-        </div>
+            <div className={`mobile-filters ${showFilters ? "open" : ""}`}>
+                <ShowOptions
+                    title={"Activados"}
+                    labels={activeLabels}
+                    values={activeValues}
+                    option={active}
+                    onChangeOption={onChangeActive}
+                    text={text}
+                />
+                <ShowOptions
+                    title={"Bloqueados"}
+                    labels={blockedLabels}
+                    values={blockedValues}
+                    option={blocked}
+                    onChangeOption={onChangeBlocked}
+                    text={text}
+                />
+                <ShowOptions
+                    title={"Stock"}
+                    labels={stockLabels}
+                    values={stockValues}
+                    option={stock}
+                    onChangeOption={onChangeStock}
+                    text={text}
+                />
+                <ShowOptions
+                    title={"Orden"}
+                    labels={orderLabels}
+                    values={orderValues}
+                    option={order}
+                    onChangeOption={onChangeOrder}
+                    text={text}
+                />
+                </div>
+            </div>
         </>
     )
 }
