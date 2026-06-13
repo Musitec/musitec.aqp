@@ -36,6 +36,22 @@
     gap: 10px;
     font-size: 14px;
 }
+.erase-options-button,
+.variant-row button{
+    font-size: 16px;
+    padding: 5px auto;
+    width: 100%;
+    color: red;
+    background: none;
+    border: 2px solid red;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.erase-options-button:hover,
+..variant-row button:hover{
+    color: white;
+    background: red;
+}
 .change-images {
     display: flex;
     gap: 8px;

@@ -636,6 +636,7 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                                 }}
                             />
                             <button
+                                className="erase-options-button"
                                 type="button"
                                 onClick={addVariant}
                             >
