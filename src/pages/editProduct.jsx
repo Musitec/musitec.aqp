@@ -556,7 +556,7 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                             </div>
                         )}
                     </div>
-                    <div className="options-container">
+                    <div className="edit-options-container">
                         <div className="variants-header">
                             <strong>Variantes:</strong>
                             {variants.length > 0 && (
