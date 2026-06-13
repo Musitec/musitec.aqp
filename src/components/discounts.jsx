@@ -64,15 +64,13 @@ function ProssessDiscounts({products, onClickProduct}){
         timeLeft: times[currentIndex]
     }
     useEffect(() => {
-        if (paused) return
         const bar = setInterval(() => {
-            const percent =
-                (remainingTimeRef.current / SLIDE_TIME) * 100
-
+            if(paused) return
+            const percent = (remainingTimeRef.current / SLIDE_TIME) * 100
             setProgress(Math.max(0, percent))
-        }, 100)
+        },100)
         return () => clearInterval(bar)
-    }, [paused])
+    },[paused])
     return(
         <ShowDiscount product={currentProduct} onClickProduct={onClickProduct} progress={progress} onHover={setPaused} transitioning={transitioning}/>
     )
@@ -83,9 +81,9 @@ const discountAdjust=(price,discount)=>{
 }
 const truncateText=(text,characters)=>{
     if(!text){
-        return "";
+        return ""
     }
-    return text.length>characters?text.slice(0,characters)+"...":text;
+    return text.length>characters?text.slice(0,characters)+"...":text
 }
 function TimeAtjust({timeLeft}){
     const seconds=timeLeft%60
@@ -121,18 +119,60 @@ function ShowDiscount({product,onClickProduct,progress,onHover,transitioning}){
     const [index,setIndex]=useState(0)
     const [fade, setFade] = useState(true)
     const image=images[index].url
+    const [touchStart, setTouchStart] = useState(null)
+    const [swiping,setSwiping] = useState(false)
+    const handleTouchStart = (e) => {
+        setTouchStart(e.touches[0].clientX)
+    }
+    const handleTouchEnd = (e) => {
+        if (touchStart === null) return
+        const touchEnd = e.changedTouches[0].clientX
+        const distance = touchStart - touchEnd
+        if(Math.abs(distance) > 50){
+            setSwiping(true)
+        }
+        if (Math.abs(distance) < 50) {
+            setTouchStart(null)
+            return
+        }
+        if (distance > 0) {
+            changeImage(
+                index === images.length - 1
+                    ? 0
+                    : index + 1
+            )
+        } else {
+            changeImage(
+                index === 0
+                    ? images.length - 1
+                    : index - 1
+            )
+        }
+        setTouchStart(null)
+    }
     const changeImage = (ind) => {
-        if (ind === index) return;
+        if (ind === index) return
         setFade(false);
         setTimeout(() => {
-            setIndex(ind);
-            setFade(true);
-        }, 150);
-    };
+            setIndex(ind)
+            setFade(true)
+        }, 150)
+    }
     return(
-        <div className={`scroll-container ${transitioning ? "fade-out" : "fade-in"}`} onClick={onHover} onMouseEnter={()=>onHover(true)} onMouseLeave={()=>onHover(false)}>
+        <div 
+            className={`scroll-container ${transitioning ? "fade-out" : "fade-in"}`}
+            onTouchStart={() => onHover(true)}
+            onTouchEnd={() => onHover(false)}
+            onTouchCancel={() => onHover(false)}
+            onMouseEnter={()=>onHover(true)}
+            onMouseLeave={()=>onHover(false)}
+        >
             <div className="show-discount-container" onMouseLeave={()=>changeImage(0)}>
-                <div className="discount-image-controller">
+                <div 
+                    className="discount-image-controller"
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
+                >
                     <div className="discount-image-viewer">
                        <img className={`discount-image ${fade ? "show" : "hide"}`} src={image} alt={product.name} />
                        <p className="discount-info">Dsto: {product.discount}%</p>
@@ -156,7 +196,12 @@ function ShowDiscount({product,onClickProduct,progress,onHover,transitioning}){
                         <p className="discount-price">S/{discountAdjust(product.price,product.discount).toFixed(2)}</p>
                     </div>
                     <p>{truncateText(product.description,200)}</p>
-                    <button className="discount-click" onClick={()=>onClickProduct(product._id)}>Aprovecha la oferta</button>
+                    <button className="discount-click" onClick={()=>{
+                        if(!swiping){
+                            onClickProduct(product._id)
+                        }
+                        setSwiping(false)
+                    }}>Aprovecha la oferta</button>
                     <div className="discount-time-display">
                         <h3>Tiempo restante</h3>
                         <TimeAtjust timeLeft={product.timeLeft}/>
