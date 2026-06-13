@@ -636,7 +636,6 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                                 }}
                             />
                             <button
-                                className="erase-options-button"
                                 type="button"
                                 onClick={addVariant}
                             >
@@ -668,7 +667,7 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                     )}
                     {variants.length > 0 && (
                         <button
-                            className="add-option-product"
+                            className="erase-options-button"
                             type="button"
                             onClick={() => {
                                 setVariants([])
