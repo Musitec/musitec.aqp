@@ -369,7 +369,7 @@ function CreateProduct(){
                             onChange={(e)=>setPrice(e.target.value)}
                         />
                     )}
-                    <div className="options-container">
+                    <div className="edit-options-container">
                         <strong>No puedes ingresar opciones repetidas:</strong>
                         <div className="options-list">
                             {options.map((opt,i)=>(
