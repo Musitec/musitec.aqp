@@ -48,7 +48,7 @@
     cursor: pointer;
 }
 .erase-options-button:hover,
-..variant-row button:hover{
+.variant-row button:hover{
     color: white;
     background: red;
 }
