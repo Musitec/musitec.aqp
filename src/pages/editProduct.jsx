@@ -476,13 +476,17 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
         e.preventDefault()
     }
     const deleteAllVariants = () => {
+        const oldVariants = [...variants]
         setVariants([])
         setProductCopy(prev => ({
             ...prev,
-            price: variants[0]?.price || 0
+            price: oldVariants[0]?.price || 0
         }))
         setStock(String(
-            variants.reduce((acc,v)=>acc + Number(v.stock || 0),0)
+            oldVariants.reduce(
+                (acc,v)=>acc + Number(v.stock || 0),
+                0
+            )
         ))
     }
     return (
