@@ -557,74 +557,101 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                         )}
                     </div>
                     <div className="options-container">
-                        <strong>Variantes:</strong>
-                        {variants.map((v, i) => (
-                            <div key={i} className="variant-row">
-                                <input
-                                    type="text"
-                                    placeholder="Nombre"
-                                    value={v.option}
-                                    onChange={(e) =>
-                                        handleOptionChange(i, e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Stock"
-                                    value={v.stock}
-                                    onChange={(e) => {
-                                        const value = e.target.value
-                                        setVariants(prev => {
-                                            const copy = [...prev]
-                                            copy[i] = {
-                                                ...copy[i],
-                                                stock: value
-                                            }
-                                            return copy
-                                        })
-                                    }}
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Precio"
-                                    value={v.price}
-                                    onChange={(e) => {
-                                        const value = e.target.value
-                                        setVariants(prev => {
-                                            const copy = [...prev]
-                                            copy[i] = {
-                                                ...copy[i],
-                                                price: value
-                                            }
-                                            return copy
-                                        })
-                                    }}
-                                />
+                        <div className="variants-header">
+                            <strong>Variantes:</strong>
+                            {variants.length > 0 && (
                                 <button
                                     type="button"
-                                    onClick={() => removeOption(i)}
+                                    onClick={() => {
+                                        setVariants([])
+                                        setStock("0")
+                                    }}
                                 >
-                                    X
+                                    Eliminar todas
                                 </button>
-                            </div>
-                        ))}
+                            )}
+                        </div>
+                        {variants.length > 0 ? (
+                            variants.map((v,i)=>(
+                                <div 
+                                    key={i}
+                                    className="variant-row"
+                                >
+                                    <div>
+                                        <label>Nombre</label>
+                                        <input
+                                            type="text"
+                                            value={v.option}
+                                            onChange={(e)=>
+                                                handleOptionChange(
+                                                    i,
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Valor / Stock</label>
+                                        <input
+                                            type="number"
+                                            value={v.stock}
+                                            onChange={(e)=>{
+                                                const copy=[...variants]
+                                                copy[i]={
+                                                    ...copy[i],
+                                                    stock:e.target.value
+                                                }
+
+                                                setVariants(copy)
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Precio</label>
+                                        <input
+                                            type="number"
+                                            value={v.price}
+                                            onChange={(e)=>{
+                                                const copy=[...variants]
+                                                copy[i]={
+                                                    ...copy[i],
+                                                    price:e.target.value
+                                                }
+                                                setVariants(copy)
+                                            }}
+                                        />
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={()=>removeOption(i)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
+                            ))
+                        ):(
+                            <p>No hay variantes</p>
+                        )}
                         <div className="aggregate-option">
                             <input
                                 type="text"
                                 placeholder="Nueva variante"
                                 value={optionInput}
-                                onChange={(e) =>
+                                onChange={(e)=>
                                     setOptionInput(e.target.value)
                                 }
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
+                                onKeyDown={(e)=>{
+                                    if(e.key==="Enter"){
                                         e.preventDefault()
                                         addVariant()
                                     }
                                 }}
                             />
-                            <button onClick={addVariant}>
-                                +
+                            <button
+                                type="button"
+                                onClick={addVariant}
+                            >
+                                Añadir variante
                             </button>
                         </div>
                     </div>
