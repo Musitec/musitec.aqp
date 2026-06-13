@@ -479,9 +479,11 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
         setVariants([])
         setProductCopy(prev => ({
             ...prev,
-            price: 0
+            price: variants[0]?.price || 0
         }))
-        setStock("0")
+        setStock(String(
+            variants.reduce((acc,v)=>acc + Number(v.stock || 0),0)
+        ))
     }
     return (
         <div className="create-product-cont">
