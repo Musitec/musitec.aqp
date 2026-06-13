@@ -194,9 +194,9 @@
 }
 .discount-click{
     display: block;
-    margin: 20px auto;
+    margin: 10px auto;
     padding: 10px 20px;
-    font-size: 30px;
+    font-size: 20px;
     border: solid 2px red;
     border-radius: 10px;
     background: white;
