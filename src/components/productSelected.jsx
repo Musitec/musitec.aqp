@@ -115,6 +115,7 @@ function ProductSelected({ product, onBuyClick, isStaff, session }) {
                             <div
                                 key={img._id || img.url || ind}
                                 onMouseEnter={() => changeImage(ind)}
+                                onClick={() => changeImage(ind)}
                                 className={`image-container ${ind === index ? "selected" : ""}`}
                             >
                                 <img src={img.url} alt={product.name} />

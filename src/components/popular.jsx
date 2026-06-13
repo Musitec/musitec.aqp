@@ -14,10 +14,38 @@ function ShowPopular({product,onClickProduct}){
     const images=product.images
     const [index,setIndex]=useState(0)
     const [fade, setFade] = useState(true)
+    const [touchStart, setTouchStart] = useState(null)
     const image=images[index].url
+    const handleTouchStart = (e) => {
+        setTouchStart(e.touches[0].clientX)
+    }
+
+    const handleTouchEnd = (e) => {
+        if (touchStart === null) return
+        const touchEnd = e.changedTouches[0].clientX
+        const distance = touchStart - touchEnd
+        if (Math.abs(distance) < 50) {
+            setTouchStart(null)
+            return
+        }
+        if (distance > 0) {
+            changeImage(
+                index === images.length - 1 
+                ? 0 
+                : index + 1
+            )
+        } else {
+            changeImage(
+                index === 0 
+                ? images.length - 1 
+                : index - 1
+            )
+        }
+        setTouchStart(null)
+    }
     const changeImage = (ind) => {
-        if (ind === index) return;
-        setFade(false);
+        if (ind === index) return
+        setFade(false)
         setTimeout(() => {
             setIndex(ind)
             setFade(true)
@@ -38,7 +66,7 @@ function ShowPopular({product,onClickProduct}){
     }
     const totalStock = getTotalStock(product)
     return(
-        <div className="product-container" onMouseLeave={()=>changeImage(0)} onClick={()=>onClickProduct(product._id)}>
+        <div className="product-container" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onMouseLeave={()=>changeImage(0)} onClick={()=>onClickProduct(product._id)}>
             <div className="product-image-viewer">
                 <img className={`product-image ${fade ? "show" : "hide"}`} src={image} alt={product.name} />
                 {product.discount>0&&<p className="product-discount">Dsto: {product.discount}%</p>}
