@@ -224,6 +224,9 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
         if (productCopy.description !== original.description) return true
         if (productCopy.catalog !== original.catalog) return true
         if (productCopy.price !== original.price) return true
+        if (JSON.stringify(variants) !== JSON.stringify(original.variants || [])) {
+            return true
+        }
         if (variants.length === 0) {
             if (String(stock) !== String(original.stock)) return true
         } else {
