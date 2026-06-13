@@ -15,15 +15,26 @@ function ShowPopular({product,onClickProduct}){
     const [index,setIndex]=useState(0)
     const [fade, setFade] = useState(true)
     const [touchStart, setTouchStart] = useState(null)
+    const [swiping,setSwiping] = useState(false)
     const image=images[index].url
+    const changeImage = (ind) => {
+        if (ind === index) return
+        setFade(false)
+        setTimeout(() => {
+            setIndex(ind)
+            setFade(true)
+        }, 150);
+    }
     const handleTouchStart = (e) => {
         setTouchStart(e.touches[0].clientX)
     }
-
     const handleTouchEnd = (e) => {
         if (touchStart === null) return
         const touchEnd = e.changedTouches[0].clientX
         const distance = touchStart - touchEnd
+        if (Math.abs(distance) >= 50) {
+            setSwiping(true)
+        }
         if (Math.abs(distance) < 50) {
             setTouchStart(null)
             return
@@ -43,14 +54,6 @@ function ShowPopular({product,onClickProduct}){
         }
         setTouchStart(null)
     }
-    const changeImage = (ind) => {
-        if (ind === index) return
-        setFade(false)
-        setTimeout(() => {
-            setIndex(ind)
-            setFade(true)
-        }, 150);
-    }
     const getDisplayPrice = (product) => {
         if (product.variants && product.variants.length > 0) {
             return Math.min(...product.variants.map(v => v.price))
@@ -66,7 +69,17 @@ function ShowPopular({product,onClickProduct}){
     }
     const totalStock = getTotalStock(product)
     return(
-        <div className="product-container" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onMouseLeave={()=>changeImage(0)} onClick={()=>onClickProduct(product._id)}>
+        <div 
+            className="product-container"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onMouseLeave={()=>changeImage(0)}
+            onClick={()=>{
+                if(!swiping){
+                    onClickProduct(product._id)
+                }
+                setSwiping(false)
+            }}>
             <div className="product-image-viewer">
                 <img className={`product-image ${fade ? "show" : "hide"}`} src={image} alt={product.name} />
                 {product.discount>0&&<p className="product-discount">Dsto: {product.discount}%</p>}

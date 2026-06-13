@@ -5,7 +5,7 @@
     padding: 10px 30px;
 }
 .product-selected-container h2{
-    font-size: 40px;
+    font-size: 30px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@
     margin: 0;
 }
 .product-selected-container h3{
-    font-size: 35px;
+    font-size: 25px;
 }
 .product-selected-viewer{
     display: flex;
@@ -112,6 +112,7 @@
     height: 100%;
     border: solid 1px black;
     border-radius: 10px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
