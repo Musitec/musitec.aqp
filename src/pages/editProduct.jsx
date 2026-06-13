@@ -472,6 +472,14 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
     const handleDragOverImage = (e) => {
         e.preventDefault()
     }
+    const deleteAllVariants = () => {
+        setVariants([])
+        setProductCopy(prev => ({
+            ...prev,
+            price: 0
+        }))
+        setStock("0")
+    }
     return (
         <div className="create-product-cont">
             <h1>Actualizar producto</h1>
@@ -669,10 +677,7 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                         <button
                             className="erase-options-button"
                             type="button"
-                            onClick={() => {
-                                setVariants([])
-                                setStock("0")
-                            }}
+                            onClick={deleteAllVariants}
                         >
                             Eliminar todas
                         </button>
