@@ -358,7 +358,9 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                 return
             }
             const formData = buildFullPayload()
-            console.log(formData)
+            for (const [key, value] of formData.entries()) {
+                console.log(key, value)
+            }
             await api.put(
                 `product-control/product/${product._id}`,
                 formData,
