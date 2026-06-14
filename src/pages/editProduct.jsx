@@ -360,11 +360,7 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
                 setError("Todas las opciones deben tener un nombre")
                 return
             }
-            console.log("VARIANTS ANTES DE ENVIAR:", variants)
             const formData = buildFullPayload()
-            for (const [key, value] of formData.entries()) {
-                console.log(key, value)
-            }
             await api.put(
                 `product-control/product/${product._id}`,
                 formData,
