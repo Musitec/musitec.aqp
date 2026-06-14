@@ -301,6 +301,9 @@ function EditPanel({ product, catalogs, onReloadProduct }) {
         if (productCopy.price !== product.price)
             formData.append("price", productCopy.price)
         if (variants.length === 0) {
+            if(original.variants?.length > 0){
+                formData.append("variants", JSON.stringify([]))
+            }
             formData.append("stock", stock)
             formData.append("price", productCopy.price)
         } else {
