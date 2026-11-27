@@ -154,3 +154,13 @@
         grid-template-columns: repeat(2,minmax(0, 1fr));
     }
 }
+@media(max-width:580px){
+    .product-container{
+        height: 250px;
+        gap: 5px;
+    }
+    .product-image-viewer{
+        min-height: 200px;
+        max-height: 200px;
+    }
+}
