@@ -61,26 +61,6 @@ function ProductImage({
         </div>
     )
 }
-const getMissingFields = () => {
-    const missing = []
-    if (images.length === 0) missing.push("agregar al menos una imagen")
-    if (!name.trim()) missing.push("ingresar el nombre")
-    if (!catalog.trim()) missing.push("seleccionar un catálogo")
-    if (options.length === 0) {
-        if (!price || Number(price) <= 0) missing.push("ingresar un precio válido")
-        if (stock === "" || Number(stock) < 0) missing.push("ingresar el stock")
-    } else {
-        options.forEach(opt => {
-            if (variantsData[opt]?.stock === "" || variantsData[opt]?.stock == null) {
-                missing.push(`ingresar el stock de ${opt}`)
-            }
-            if (variantsData[opt]?.price === "" || variantsData[opt]?.price == null) {
-                missing.push(`ingresar el precio de ${opt}`)
-            }
-        })
-    }
-    return missing
-}
 function CreateProduct(){
     const inputRef=useRef(null)
     const [images, setImages]=useState([])
@@ -163,6 +143,26 @@ function CreateProduct(){
             return result
         }
         return parseBlock()
+    }
+    const getMissingFields = () => {
+        const missing = []
+        if (images.length === 0) missing.push("agregar al menos una imagen")
+        if (!name.trim()) missing.push("ingresar el nombre")
+        if (!catalog.trim()) missing.push("seleccionar un catálogo")
+        if (options.length === 0) {
+            if (!price || Number(price) <= 0) missing.push("ingresar un precio válido")
+            if (stock === "" || Number(stock) < 0) missing.push("ingresar el stock")
+        } else {
+            options.forEach(opt => {
+                if (variantsData[opt]?.stock === "" || variantsData[opt]?.stock == null) {
+                    missing.push(`ingresar el stock de ${opt}`)
+                }
+                if (variantsData[opt]?.price === "" || variantsData[opt]?.price == null) {
+                    missing.push(`ingresar el precio de ${opt}`)
+                }
+            })
+        }
+        return missing
     }
     const handleChange = (e) => {
         const files = Array.from(e.target.files)
