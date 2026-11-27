@@ -164,9 +164,14 @@
         max-height: 125px;
     }
     .product-discount{
-        font-size: 16px;
+        font-size: 14px;
+        top: 15px;
+        left: -50px;
     }
     .product-container h2{
         font-size: 12px;
+    }
+    .product-prices-container{
+        font-size: 10px;
     }
 }
