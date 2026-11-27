@@ -36,6 +36,9 @@ function App() {
     const stored = localStorage.getItem("user")
     return stored ? JSON.parse(stored) : null
   })
+  const now= new Date()
+  const month = now.getMonth()+1
+  const isChristmas = ((month >= 10) || (month<1))?true:false
   const isStaff = user?.role === "admin" || user?.role === "moderator"
   const getUser=(myUser)=>{
     localStorage.setItem("user", JSON.stringify(myUser))
@@ -187,7 +190,7 @@ function App() {
         </div>)
       }
       <div className="app">
-        <Header annonimousOrder={annonimousOrder} user={user} onEnterSession={onEnterSession} onLogout={onLogout} setLoading={setLoadingSession} showLogin={showLogin} setShowLogin={setShowLogin} updateUser={restoreSession}/>
+        <Header annonimousOrder={annonimousOrder} user={user} onEnterSession={onEnterSession} onLogout={onLogout} setLoading={setLoadingSession} showLogin={showLogin} setShowLogin={setShowLogin} updateUser={restoreSession} isChristmas={isChristmas}/>
         <main className="content">
           <Routes>
             <Route path="/" element={<Home onClickProduct={onClickProduct} session={user!==null}/>}/>
@@ -217,7 +220,7 @@ function App() {
           "Hola, tengo una consulta, ¿me das información? 🤖"
         )}`} target="_blank" rel="noopener noreferrer"className="whatsapp-btn">
           <i className='bi bi-whatsapp'></i></a>
-        <Footer user={user}/>
+        <Footer user={user} isChristmas={isChristmas}/>
       </div>
     </>
   )

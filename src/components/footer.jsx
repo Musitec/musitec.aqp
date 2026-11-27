@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import "./footer.css"
-function Footer({user}){
+function Footer({user, isChristmas}){
     const navigate=useNavigate()
     const reloadPage=(route)=>{
         navigate(route),
@@ -21,6 +21,49 @@ function Footer({user}){
     }
     return(
         <footer className="footer">
+            {isChristmas && (
+                <div className="chistmas-lights-content">
+                    <div className="christmas-lights">
+                        <svg className="lights-cable" viewBox="0 0 1000 40" preserveAspectRatio="none">
+                            <path
+                                d="
+                                    M 0 0
+                                    Q 62.5 34 125 0
+                                    Q 187.5 34 250 0
+                                    Q 312.5 34 375 0
+                                    Q 437.5 34 500 0
+                                    Q 562.5 34 625 0
+                                    Q 687.5 34 750 0
+                                    Q 812.5 34 875 0
+                                    Q 937.5 34 1000 0
+                                "
+                                fill="none"
+                                stroke="#263c2d"
+                                strokeWidth="2.5"
+                            />
+                        </svg>
+                        {Array.from({ length: 9 }).map((_, index) => (
+                            <span key={`support-${index}`} className="cable-support" style={{ left: `${index * 12.5}%` }}/>
+                        ))}
+                        {Array.from({ length: 18 }).map((_, index) => {
+                            const x = 2.5 + index * 5.5;
+                            const t = (x / 12.5) % 1;
+                            const cableY = 68 * t * (1 - t);
+                            return (
+                                <span
+                                    key={`bulb-${index}`}
+                                    className={`christmas-bulb bulb-${index % 4}`}
+                                    style={{
+                                        left: `${x}%`,
+                                        top: `${cableY + 3}px`,
+                                        transform: `rotate(${index % 2 === 0 ? -12 : 12}deg)`
+                                    }}
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
             <div className="footer-content">
                 <div className="footer-section about">
                     <h3>RUC: 10481821211</h3>
