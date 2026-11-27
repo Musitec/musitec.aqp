@@ -160,7 +160,13 @@
         gap: 5px;
     }
     .product-image-viewer{
-        min-height: 200px;
-        max-height: 200px;
+        min-height: 125px;
+        max-height: 125px;
+    }
+    .product-discount{
+        font-size: 16px;
+    }
+    .product-container h2{
+        font-size: 12px;
     }
 }
