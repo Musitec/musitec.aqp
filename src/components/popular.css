@@ -165,13 +165,27 @@
     }
     .product-discount{
         font-size: 14px;
-        top: 15px;
-        left: -50px;
+        top: 10px;
+        left: -70px;
+        padding: 5px 25px;
+    }
+    .product-bubbles-container{
+        height: 5px;
+        gap: 2px;
+    }
+    .product-bubble{
+        width: 5px;
     }
     .product-container h2{
         font-size: 12px;
     }
     .product-prices-container{
         font-size: 10px;
+    }
+    .product-price-old{
+        font-size: 12px;
+    }
+    .product-price-new{
+        font-size: 14px;
     }
 }
